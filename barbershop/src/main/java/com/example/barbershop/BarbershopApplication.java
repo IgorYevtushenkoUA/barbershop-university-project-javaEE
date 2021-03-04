@@ -1,6 +1,7 @@
 package com.example.barbershop;
 
 import com.example.barbershop.entity.CommentEntity;
+import com.example.barbershop.entity.MasterHasProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.service.*;
 import org.springframework.boot.SpringApplication;
@@ -17,8 +18,10 @@ public class BarbershopApplication {
 
     public static void accountExam(ApplicationContext applicationContext) {
 
-        CommentService recordService = applicationContext.getBean(CommentService.class);
-        System.out.println(recordService.getAllComments());
+        MasterHasProcedureService recordService = applicationContext.getBean(MasterHasProcedureService.class);
+        System.out.println(recordService.getAllMasterHasProcedure());
+        System.out.println(recordService.getMasterHasProcedureByMasterId(2));
+        System.out.println(recordService.getMasterHasProcedureByProcedureId(3));
 
 //        AccountService accountService = applicationContext.getBean(AccountService.class);
         //        accountService.updateAccountById(
