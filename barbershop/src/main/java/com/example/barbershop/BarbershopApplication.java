@@ -1,5 +1,6 @@
 package com.example.barbershop;
 
+import com.example.barbershop.entity.CommentEntity;
 import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.service.*;
 import org.springframework.boot.SpringApplication;
@@ -16,8 +17,8 @@ public class BarbershopApplication {
 
     public static void accountExam(ApplicationContext applicationContext) {
 
-        RecordService recordService = applicationContext.getBean(RecordService.class);
-        System.out.println(recordService.getRecordById(1));
+        CommentService recordService = applicationContext.getBean(CommentService.class);
+        System.out.println(recordService.getAllComments());
 
 //        AccountService accountService = applicationContext.getBean(AccountService.class);
         //        accountService.updateAccountById(
