@@ -1,9 +1,6 @@
 package com.example.barbershop;
 
-import com.example.barbershop.service.AccountService;
-import com.example.barbershop.service.LevelService;
-import com.example.barbershop.service.RoleServices;
-import com.example.barbershop.service.StatusService;
+import com.example.barbershop.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -18,9 +15,8 @@ public class BarbershopApplication {
 
     public static void accountExam(ApplicationContext applicationContext) {
 
-        StatusService roleServices = applicationContext.getBean(StatusService.class);
-        System.out.println(roleServices.getAllStatuses());
-        System.out.println(roleServices.getStatusById(1));
+        MasterService masterService = applicationContext.getBean(MasterService.class);
+        System.out.println(masterService.getAllMasters());
 
 //        AccountService accountService = applicationContext.getBean(AccountService.class);
         //        accountService.updateAccountById(

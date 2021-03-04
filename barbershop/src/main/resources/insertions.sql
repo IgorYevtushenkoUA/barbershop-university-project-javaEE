@@ -32,29 +32,29 @@
 -- VALUES ('master');
 
 -- insert procedure
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Haircut (including fade)', 400, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Haircut with a clipper', 300, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Beard', 300, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Children''s haircut', 350, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Royal shave', 350, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Gray hair camouflage', 350, 30);
-INSERT INTO public.procedure (name, price, duration)
-VALUES ('Father + son', 650, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Haircut (including fade)', 400, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Haircut with a clipper', 300, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Beard', 300, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Children''s haircut', 350, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Royal shave', 350, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Gray hair camouflage', 350, 30);
+-- INSERT INTO public.procedure (name, price, duration)
+-- VALUES ('Father + son', 650, 30);
 --
 -- -- insert master
--- INSERT INTO public.master (account_id, work_experience, rating, level_id)
+-- INSERT INTO public.master (master_id, work_experience, rating, level_id)
 -- VALUES (2, 5, 4.8, 2);
--- INSERT INTO public.master (account_id, work_experience, rating, level_id)
+-- INSERT INTO public.master (master_id, work_experience, rating, level_id)
 -- VALUES (3, 4, 4.8, 2);
--- INSERT INTO public.master (account_id, work_experience, rating, level_id)
+-- INSERT INTO public.master (master_id, work_experience, rating, level_id)
 -- VALUES (4, 10, 5, 2);
--- INSERT INTO public.master (account_id, work_experience, rating, level_id)
+-- INSERT INTO public.master (master_id, work_experience, rating, level_id)
 -- VALUES (5, 1, 4.2, 1);
 --
 -- -- insert master_has_procedure
