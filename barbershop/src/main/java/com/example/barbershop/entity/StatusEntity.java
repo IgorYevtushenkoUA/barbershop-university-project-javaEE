@@ -12,11 +12,13 @@ import javax.persistence.*;
 @Setter
 @ToString
 public class StatusEntity {
+
     @Id
     @Column(name = "status_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roleId;
 
     @Column(name = "name")
     private String name;
+
 }

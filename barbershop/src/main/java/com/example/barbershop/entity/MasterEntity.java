@@ -6,26 +6,25 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "master")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class MasterEntity {
 
-    // todo change PK to FK -> xz
     @Id
-    @Column(name = "account_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer accountId;
+    @JoinColumn(name = "master_id") // todo JoinColumn may change -> because
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer masterId;
 
     @Column(name = "work_experience")
-    private int name;
+    private Integer workExperience;
 
-    // todo change in database to int
     @Column(name = "rating")
-    private double rating;
+    private Integer rating;
 
-    @Column(name = "level_id")
-    private int level_id;
+    @JoinColumn(name = "level_id", insertable = false, updatable = false)
+    private Integer levelId;
 }

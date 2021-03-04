@@ -1,15 +1,13 @@
 package com.example.barbershop.service;
 
-
 import com.example.barbershop.entity.AccountEntity;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -18,10 +16,8 @@ public class AccountService {
 
     private final EntityManager entityManager;
 
-    // create new Account
-    // todo problem with PK
     @Transactional
-    public void createAccount(
+    public AccountEntity createAccount(
             String email,
             String password,
             int roleId,
@@ -43,36 +39,94 @@ public class AccountService {
         account.setAge(age);
         account.setGender(gender);
 
-        entityManager.persist(account);
+        return entityManager.merge(account); // persist
     }
 
-    /** get account by ID */
+    /**
+     * get account by ID
+     */
     @Transactional
-    public AccountEntity getAccountById(int accountId){
+    public AccountEntity getAccountById(int accountId) {
+        System.out.println("getAccountById");
         return entityManager.find(AccountEntity.class, accountId);
     }
 
-    /** get All account */
-    public List<AccountEntity> getAllAccounts(){
+    /**
+     * get All account
+     */
+    public List<AccountEntity> getAllAccounts() {
+        System.out.println("getAllAccounts");
         return entityManager.createQuery("SELECT a FROM AccountEntity a", AccountEntity.class)
                 .getResultList();
     }
 
-    /** update account by ID*/
-//    @Transactional
-//    public void updateAccountById(int accountId){
-//        return entityManager.createQuery("UPDATE account FROM AccountEntity a SET age=10 where a.id=1", AccountEntity.class);
-//    }
+    /**
+     * update account by ID
+     */
+    @Transactional
+    public void updateAccountById(AccountEntity account) {
+        entityManager.merge(account);
+    }
 
+    /**
+     * delete account by ID
+     */
+    @Transactional
+    public void deleteAccountById(int accountId) {
+        entityManager.createQuery("delete from AccountEntity a where a.accountId = :accountId", AccountEntity.class)
+                .setParameter("accountId", accountId)
+                .executeUpdate();
+    }
 
-    // edit account
-    // delete account by ID
+    /**
+     * todo check method
+     * find by firstName + secondName + LastName
+     */
+    @Transactional
+    public List<AccountEntity> findAccountByName(String name) {
+        System.out.println("findAccountByName");
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.firstName LIKE : firstName " +
+                "OR  a.secondName LIKE : secondName " +
+                "OR  a.lastName LIKE : lastName", AccountEntity.class)
+                .setParameter("firstName", '%' + name + '%')
+                .setParameter("secondName", '%' + name + '%')
+                .setParameter("lastName", '%' + name + '%')
+                .getResultList();
+    }
 
+    /**
+     * todo check method
+     * find by role
+     */
+    @Transactional
+    public List<AccountEntity> findAccountByRoleId(int roleId) {
+        System.out.println("findAccountByRoleId");
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.roleId = : roleId", AccountEntity.class)
+                .setParameter("roleId", roleId)
+                .getResultList();
+    }
 
+    /**
+     * get list of account with email + password
+     */
+    @Transactional
+    public List getAccountsByEmailAndPassword(String email, String password) {
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.email = :email " +
+                "AND a.password = : password")
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+    }
 
-    // xz треба по всім параметрам робити пошук
-    // get account by name
-    // get account by rating
-    // get account
-
+    /** get account by email and password */
+    @Transactional
+    public AccountEntity getAccountByEmailAndPassword(String email, String password) {
+        List accounts = getAccountsByEmailAndPassword(email, password);
+        return accounts.isEmpty()
+                ? null
+                : (AccountEntity) accounts.get(0);
+    }
 }

@@ -15,17 +15,19 @@ public class ProcedureEntity {
 
     @Id
     @Column(name = "procedure_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer procedureId;
 
     @Column(name = "name")
     private String name;
 
-    // todo change in database to int
     @Column(name = "price")
-    private double price;
+    private Integer price;
 
     @Column(name = "duration")
-    private int duration;
+    private Integer duration;
+
+
+
 
 }

@@ -17,17 +17,16 @@ public class AccountEntity {
 
     @Id
     @Column(name = "account_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
     @Column(name = "email", length=128, nullable = false)
     private String email;
 
-
     @Column(name = "password")
     private String password;
 
-    @Column(name = "role_id")
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
     private Integer roleId;
 
     @Column(name = "phone_number")
@@ -43,7 +42,7 @@ public class AccountEntity {
     private String lastName;
 
     @Column(name = "age")
-    private int age;
+    private Integer age;
 
     // may change char -> String xz
     @Column(name = "gender")

@@ -15,7 +15,7 @@ public class LevelEntity {
 
     @Id
     @Column(name = "level_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roleId;
 
     @Column(name = "name")

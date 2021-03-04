@@ -1,6 +1,5 @@
 package com.example.barbershop.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
@@ -8,20 +7,21 @@ import java.util.Date;
 
 @Entity
 @Table(name = "comment")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentEntity {
 
     @Id
-    @Column(name = "account_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "comment_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @Column(name = "order_id")
-    private Integer orderId;
+    @JoinColumn(name="record_id")
+    private Integer recordId;
 
     @Column(name = "user_comment")
     private String userComment;
@@ -31,5 +31,4 @@ public class CommentEntity {
 
     @Column(name = "comment_time")
     private Date commentTime;
-
 }

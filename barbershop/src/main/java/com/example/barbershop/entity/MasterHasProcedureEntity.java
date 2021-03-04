@@ -3,20 +3,21 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
-@Embeddable
+@Entity
 @Table(name = "master_has_procedure")
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 public class MasterHasProcedureEntity {
 
-    @Column(name="master_id")
-    private Integer masterId;
+    @EmbeddedId
+    private MasterHasProcedureId masterHasProcedureId;
 
-    @Column(name="procedure_id")
-    private Integer procedureId;
-    
 }
+
+
