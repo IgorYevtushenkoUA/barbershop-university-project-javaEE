@@ -93,6 +93,7 @@ public class AccountService {
      * todo check method
      * find by firstName + secondName + LastName
      */
+    @Transactional
     public List<AccountEntity> findAccountByName(String name) {
         System.out.println("findAccountByName");
         return entityManager.createQuery("SELECT a FROM AccountEntity a " +
@@ -109,6 +110,7 @@ public class AccountService {
      * todo check method
      * find by role
      */
+    @Transactional
     public List<AccountEntity> findAccountByRoleId(int roleId) {
         System.out.println("findAccountByRoleId");
         return entityManager.createQuery("SELECT a FROM AccountEntity a " +
@@ -120,6 +122,7 @@ public class AccountService {
     /**
      * get list of account with email + password
      */
+    @Transactional
     public List getAccountsByEmailAndPassword(String email, String password) {
         return entityManager.createQuery("SELECT a FROM AccountEntity a " +
                 "WHERE a.email = :email " +
@@ -130,6 +133,7 @@ public class AccountService {
     }
 
     /** get account by email and password */
+    @Transactional
     public AccountEntity getAccountByEmailAndPassword(String email, String password) {
         List accounts = getAccountsByEmailAndPassword(email, password);
         return accounts.isEmpty()

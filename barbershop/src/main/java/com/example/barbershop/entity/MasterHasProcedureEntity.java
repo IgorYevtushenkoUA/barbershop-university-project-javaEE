@@ -21,19 +21,3 @@ public class MasterHasProcedureEntity {
 }
 
 
-@EqualsAndHashCode
-@Embeddable
-@AllArgsConstructor()
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
-class MasterHasProcedureId implements Serializable {
-
-    @Column(name = "master_id")
-    private Integer masterId;
-
-    @Column(name = "procedure_id")
-    private Integer procedureId;
-
-}
