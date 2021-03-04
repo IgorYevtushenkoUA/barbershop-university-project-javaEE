@@ -16,7 +16,7 @@ public class TestEntity {
 
     @Id
     @Column(name = "test_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roleId;
 
     @Column(name = "name")
