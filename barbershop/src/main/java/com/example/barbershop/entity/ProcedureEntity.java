@@ -1,24 +1,33 @@
 package com.example.barbershop.entity;
 
-
 import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "test1")
+@Table(name = "procedure")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class TestEntity {
+public class ProcedureEntity {
 
     @Id
-    @Column(name = "test_id")
+    @Column(name = "procedure_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleId;
+    private Integer procedureId;
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "price")
+    private Integer price;
+
+    @Column(name = "duration")
+    private Integer duration;
+
+
+
+
 }

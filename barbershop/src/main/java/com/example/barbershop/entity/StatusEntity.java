@@ -4,19 +4,18 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name = "role")
+@Table(name = "status")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
-public class RoleEntity {
+public class StatusEntity {
 
     @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "status_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer roleId;
 
     @Column(name = "name")

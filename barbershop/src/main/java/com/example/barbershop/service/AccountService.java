@@ -3,9 +3,6 @@ package com.example.barbershop.service;
 
 import com.example.barbershop.entity.AccountEntity;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Hibernate;
-import org.springframework.boot.web.servlet.server.Session;
-import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;

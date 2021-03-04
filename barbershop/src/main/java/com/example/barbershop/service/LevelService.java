@@ -1,9 +1,8 @@
 package com.example.barbershop.service;
 
-import com.example.barbershop.entity.RoleEntity;
+import com.example.barbershop.entity.LevelEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -11,26 +10,26 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class RoleServices {
-
+public class LevelService {
     private final EntityManager entityManager;
 
     /**
-     * get all roles
+     * get all levels
      */
     @Transactional
-    public List<RoleEntity> getAllRoles(){
+    public List<LevelEntity> getAllLevels(){
         System.out.println("getAllRoles");
-        return entityManager.createQuery("SELECT r FROM RoleEntity r", RoleEntity.class)
+        return entityManager.createQuery("SELECT l FROM LevelEntity l", LevelEntity.class)
                 .getResultList();
     }
 
     /**
-     * get role by ID
+     * get level by ID
      */
     @Transactional
-    public RoleEntity getRoleById(int roleId){
-        return entityManager.find(RoleEntity.class, roleId);
-    }
+    public LevelEntity getLevelById(int levelId){
 
+        System.out.println("getLevelById");
+        return entityManager.find(LevelEntity.class, levelId);
+    }
 }
