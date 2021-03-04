@@ -3,6 +3,7 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "role")
@@ -20,5 +21,9 @@ public class RoleEntity {
 
     @Column(name = "name")
     private String name;
+
+//    @OneToMany
+//    @JoinColumn(name = "role_id")
+//    private List<AccountEntity>
 
 }

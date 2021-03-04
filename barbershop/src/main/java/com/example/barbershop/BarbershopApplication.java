@@ -11,23 +11,24 @@ public class BarbershopApplication {
 
     public static void main(String[] args) {
         ApplicationContext applicationContext =SpringApplication.run(BarbershopApplication.class, args);
-        testExam(applicationContext);
+        accountExam(applicationContext);
     }
 
     public static void accountExam(ApplicationContext applicationContext){
         AccountService accountService = applicationContext.getBean(AccountService.class);
-
-        accountService.createAccount(
-                "testAccdountEmail2@gmail.com",
-                "testAccount2Password",
-                1,
-                "000-00-07",
-                "testAccount2",
-                "testAccount2",
-                "testAccount2",
-                21,
-                'W'
-                );
+        accountService.deleteAccountById(14);
+//        accountService.updateAccountById(
+//                1,
+//                "update@gmail.com",
+//                "update1",
+//                2,
+//                "000-00-07",
+//                "update1",
+//                "update1",
+//                "update1",
+//                21,
+//                'M'
+//                );
     }
 
     public static void testExam(ApplicationContext applicationContext){

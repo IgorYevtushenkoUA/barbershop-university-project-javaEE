@@ -9,7 +9,9 @@ import org.springframework.data.jpa.provider.HibernateUtils;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -21,7 +23,7 @@ public class AccountService {
     // create new Account
     // todo problem with PK
     @Transactional
-    public void createAccount(
+    public AccountEntity createAccount(
             String email,
             String password,
             int roleId,
@@ -43,36 +45,64 @@ public class AccountService {
         account.setAge(age);
         account.setGender(gender);
 
-        entityManager.persist(account);
+        return entityManager.merge(account); // persist
     }
 
-    /** get account by ID */
+    /**
+     * get account by ID
+     */
     @Transactional
-    public AccountEntity getAccountById(int accountId){
+    public AccountEntity getAccountById(int accountId) {
+        System.out.println("getAccountById");
         return entityManager.find(AccountEntity.class, accountId);
     }
 
-    /** get All account */
-    public List<AccountEntity> getAllAccounts(){
+    /**
+     * get All account
+     */
+    public List<AccountEntity> getAllAccounts() {
+        System.out.println("getAllAccounts");
         return entityManager.createQuery("SELECT a FROM AccountEntity a", AccountEntity.class)
                 .getResultList();
     }
 
-    /** update account by ID*/
-//    @Transactional
-//    public void updateAccountById(int accountId){
-//        return entityManager.createQuery("UPDATE account FROM AccountEntity a SET age=10 where a.id=1", AccountEntity.class);
-//    }
+    /**
+     * update account by ID
+     */
+    @Transactional
+    public void updateAccountById(
+            Integer accountId,
+            String email,
+            String password,
+            Integer roleId,
+            String phoneNumber,
+            String firstName,
+            String secondName,
+            String lastName,
+            int age,
+            char gender) {
+        AccountEntity updatedAccount = new AccountEntity(
+                accountId,
+                email,
+                password,
+                roleId,
+                phoneNumber,
+                firstName,
+                secondName,
+                lastName,
+                age,
+                gender);
+        entityManager.merge(updatedAccount);
+    }
 
-
-    // edit account
-    // delete account by ID
-
-
-
-    // xz треба по всім параметрам робити пошук
-    // get account by name
-    // get account by rating
-    // get account
+    /**
+     * delete account by ID
+     */
+    @Transactional
+    public void deleteAccountById(int accountId) {
+        entityManager.createQuery("delete from AccountEntity a where a.accountId = :accountId")
+                .setParameter("accountId", accountId)
+                .executeUpdate();
+    }
 
 }
