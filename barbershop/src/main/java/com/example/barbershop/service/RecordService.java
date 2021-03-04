@@ -86,10 +86,46 @@ public class RecordService {
         System.out.println("getRecordById");
     }
 
-    /** get all record by master */
-    /** get all records by client */
-    /** get all records by status */
-    /** get all records by procedure */
+    /** todo test method
+     * get all record by masterId
+     */
+    public List<RecordEntity> getAllRecordByMasterId(int masterId) {
+        System.out.println("getAllRecordByMasterId");
+        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.masterId=:masterId ", RecordEntity.class)
+                .setParameter("masterId", masterId)
+                .getResultList();
+    }
+
+    /** todo test method
+     * get all records by clientId
+     */
+    public List<RecordEntity> getAllRecordByClientId(int clientId) {
+        System.out.println("getAllRecordByClientId");
+        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.clientId=:clientId ", RecordEntity.class)
+                .setParameter("clientId", clientId)
+                .getResultList();
+    }
+
+    /** todo test method
+     * get all records by status
+     */
+    public List<RecordEntity> getAllRecordByStatusId(int statusId) {
+        System.out.println("getAllRecordByStatusId");
+        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.statusId=:statusId ", RecordEntity.class)
+                .setParameter("statusId", statusId)
+                .getResultList();
+    }
+
+    /** todo test method
+     * get all records by procedure
+     */
+    public List<RecordEntity> getAllRecordByProcedureId(int procedureId) {
+        System.out.println("getAllRecordByProcedureId");
+        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.procedureId=:procedureId ", RecordEntity.class)
+                .setParameter("procedureId", procedureId)
+                .getResultList();
+    }
+
     /** get all records by day ??? */
 
 }

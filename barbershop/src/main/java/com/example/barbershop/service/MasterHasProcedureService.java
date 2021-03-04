@@ -70,7 +70,7 @@ public class MasterHasProcedureService {
         System.out.println("deleteMasterHasProcedure");
         entityManager.createQuery("DELETE FROM MasterHasProcedureEntity mhp " +
                 "WHERE mhp.masterHasProcedureId.masterId=:masterId " +
-                "AND mhp.masterHasProcedureId.procedureId= :procedureId")
+                "AND mhp.masterHasProcedureId.procedureId= :procedureId", MasterHasProcedureEntity.class)
                 .setParameter("masterId", masterId)
                 .setParameter("procedureId", procedureId)
                 .executeUpdate();
