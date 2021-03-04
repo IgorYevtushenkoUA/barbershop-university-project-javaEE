@@ -35,4 +35,10 @@ public class CommentService {
         return entityManager.find(CommentEntity.class, commentId);
     }
 
+    // todo
+    /** find by masterId */
+    /** find by find by day */
+    /** find by masterId */
+
+
 }

@@ -1,6 +1,5 @@
 package com.example.barbershop.service;
 
-
 import com.example.barbershop.entity.AccountEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,8 +16,6 @@ public class AccountService {
 
     private final EntityManager entityManager;
 
-    // create new Account
-    // todo problem with PK
     @Transactional
     public AccountEntity createAccount(
             String email,
@@ -67,28 +64,18 @@ public class AccountService {
      * update account by ID
      */
     @Transactional
-    public void updateAccountById(
-            Integer accountId,
-            String email,
-            String password,
-            Integer roleId,
-            String phoneNumber,
-            String firstName,
-            String secondName,
-            String lastName,
-            int age,
-            char gender) {
+    public void updateAccountById(AccountEntity account) {
         AccountEntity updatedAccount = new AccountEntity(
-                accountId,
-                email,
-                password,
-                roleId,
-                phoneNumber,
-                firstName,
-                secondName,
-                lastName,
-                age,
-                gender);
+                account.getAccountId(),
+                account.getEmail(),
+                account.getPassword(),
+                account.getRoleId(),
+                account.getPhoneNumber(),
+                account.getFirstName(),
+                account.getSecondName(),
+                account.getLastName(),
+                account.getAge(),
+                account.getGender());
         entityManager.merge(updatedAccount);
     }
 
@@ -97,9 +84,56 @@ public class AccountService {
      */
     @Transactional
     public void deleteAccountById(int accountId) {
-        entityManager.createQuery("delete from AccountEntity a where a.accountId = :accountId")
+        entityManager.createQuery("delete from AccountEntity a where a.accountId = :accountId", AccountEntity.class)
                 .setParameter("accountId", accountId)
                 .executeUpdate();
     }
 
+    /**
+     * todo check method
+     * find by firstName + secondName + LastName
+     */
+    public List<AccountEntity> findAccountByName(String name) {
+        System.out.println("findAccountByName");
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.firstName LIKE : firstName " +
+                "OR  a.secondName LIKE : secondName " +
+                "OR  a.lastName LIKE : lastName", AccountEntity.class)
+                .setParameter("firstName", '%' + name + '%')
+                .setParameter("secondName", '%' + name + '%')
+                .setParameter("lastName", '%' + name + '%')
+                .getResultList();
+    }
+
+    /**
+     * todo check method
+     * find by role
+     */
+    public List<AccountEntity> findAccountByRoleId(int roleId) {
+        System.out.println("findAccountByRoleId");
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.roleId = : roleId", AccountEntity.class)
+                .setParameter("roleId", roleId)
+                .getResultList();
+    }
+
+    /**
+     * get list of account with email + password
+     */
+    public List getAccountsByEmailAndPassword(String email, String password) {
+        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
+                "WHERE a.email = :email " +
+                "AND a.password = : password")
+                .setParameter("email", email)
+                .setParameter("password", password)
+                .getResultList();
+    }
+
+    /** get account by email and password */
+    public AccountEntity getAccountByEmailAndPassword(String email, String password) {
+        List accounts = getAccountsByEmailAndPassword(email, password);
+        return accounts.isEmpty()
+                ? null
+                : (AccountEntity) accounts.get(0);
+    }
 }

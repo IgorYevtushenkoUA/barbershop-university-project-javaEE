@@ -58,40 +58,40 @@
 -- VALUES (5, 1, 4.2, 1);
 --
 -- -- insert master_has_procedure
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (2, 1);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (2, 2);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (2, 3);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (2, 4);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 1);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 2);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 3);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 7);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 6);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (3, 5);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (4, 1);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (4, 3);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (4, 5);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (4, 7);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (5, 2);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (5, 4);
-INSERT INTO public.master_has_procedure (master_id, procedure_id)
-VALUES (5, 6);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (2, 1);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (2, 2);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (2, 3);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (2, 4);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 1);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 2);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 3);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 7);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 6);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (3, 5);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (4, 1);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (4, 3);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (4, 5);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (4, 7);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (5, 2);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (5, 4);
+-- INSERT INTO public.master_has_procedure (master_id, procedure_id)
+-- VALUES (5, 6);
 --
 -- insert record
 -- INSERT INTO public.record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)

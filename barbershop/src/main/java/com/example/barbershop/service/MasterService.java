@@ -26,4 +26,8 @@ public class MasterService {
         return entityManager.find(MasterEntity.class, masterId);
     }
 
+    // todo
+    /** update master */
+
+
 }

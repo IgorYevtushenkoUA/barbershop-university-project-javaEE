@@ -18,10 +18,9 @@ public class BarbershopApplication {
 
     public static void accountExam(ApplicationContext applicationContext) {
 
-        MasterHasProcedureService recordService = applicationContext.getBean(MasterHasProcedureService.class);
-        System.out.println(recordService.getAllMasterHasProcedure());
-        System.out.println(recordService.getMasterHasProcedureByMasterId(2));
-        System.out.println(recordService.getMasterHasProcedureByProcedureId(3));
+        AccountService accountService = applicationContext.getBean(AccountService.class);
+        System.out.println(accountService.getAccountByEmailAndPassword("admin@gmail.com", "password"));
+
 
 //        AccountService accountService = applicationContext.getBean(AccountService.class);
         //        accountService.updateAccountById(

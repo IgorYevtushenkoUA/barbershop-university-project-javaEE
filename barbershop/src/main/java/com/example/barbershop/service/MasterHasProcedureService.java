@@ -30,7 +30,7 @@ public class MasterHasProcedureService {
     @Transactional
     public List<MasterHasProcedureEntity> getMasterHasProcedureByMasterId(int masterId) {
         System.out.println("getMasterHasProcedureByMasterId");
-        return entityManager.createQuery("SELECT mhp FROM MasterHasProcedureEntity mhp WHERE mhp.masterHasProcedureId.masterId =: masterId")
+        return entityManager.createQuery("SELECT mhp FROM MasterHasProcedureEntity mhp WHERE mhp.masterHasProcedureId.masterId =: masterId", MasterHasProcedureEntity.class)
                 .setParameter("masterId", masterId)
                 .getResultList();
     }
@@ -40,10 +40,15 @@ public class MasterHasProcedureService {
      */
     public List<MasterHasProcedureEntity> getMasterHasProcedureByProcedureId(int procedureId) {
         System.out.println("getMasterHasProcedureByMasterId");
-        return entityManager.createQuery("SELECT mhp FROM MasterHasProcedureEntity mhp WHERE mhp.masterHasProcedureId.procedureId= : procedureId")
+        return entityManager.createQuery("SELECT mhp FROM MasterHasProcedureEntity mhp WHERE mhp.masterHasProcedureId.procedureId= : procedureId", MasterHasProcedureEntity.class)
                 .setParameter("procedureId", procedureId)
                 .getResultList();
     }
+
+    // todo
+    /** edit */
+    /** delete */
+    /** update by masterId and procedureId */
 
 
 }

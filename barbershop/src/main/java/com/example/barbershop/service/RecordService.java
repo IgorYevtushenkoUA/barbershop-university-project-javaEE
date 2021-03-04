@@ -86,5 +86,10 @@ public class RecordService {
         System.out.println("getRecordById");
     }
 
-    /** get all record by master*/
+    /** get all record by master */
+    /** get all records by client */
+    /** get all records by status */
+    /** get all records by procedure */
+    /** get all records by day ??? */
+
 }
