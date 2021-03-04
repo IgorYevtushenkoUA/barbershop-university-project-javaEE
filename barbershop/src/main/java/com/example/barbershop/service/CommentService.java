@@ -30,15 +30,19 @@ public class CommentService {
      * get comment by id
      */
     @Transactional
-    public CommentEntity getCommentById(int commentId) {
-        System.out.println("getCommentById");
+    public CommentEntity getCommentByCommentId(int commentId) {
+        System.out.println("getCommentByCommentId");
         return entityManager.find(CommentEntity.class, commentId);
     }
 
-    // todo
-    /** find by masterId */
-    /** find by find by day */
-    /** find by masterId */
+    // todo test method
+    /** find comment by orderId */
+    public CommentEntity getCommentByOrderId(int orderId) {
+        System.out.println("getCommentByOrderId");
+        return entityManager.find(CommentEntity.class, orderId);
+    }
 
+    // todo
+    /** find comment by group or orders*/
 
 }

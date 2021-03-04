@@ -65,18 +65,7 @@ public class AccountService {
      */
     @Transactional
     public void updateAccountById(AccountEntity account) {
-        AccountEntity updatedAccount = new AccountEntity(
-                account.getAccountId(),
-                account.getEmail(),
-                account.getPassword(),
-                account.getRoleId(),
-                account.getPhoneNumber(),
-                account.getFirstName(),
-                account.getSecondName(),
-                account.getLastName(),
-                account.getAge(),
-                account.getGender());
-        entityManager.merge(updatedAccount);
+        entityManager.merge(account);
     }
 
     /**

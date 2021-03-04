@@ -28,6 +28,9 @@ public class MasterService {
 
     // todo
     /** update master */
+    public void updateMaster(MasterEntity master){
+        entityManager.merge(master);
+    }
 
 
 }
