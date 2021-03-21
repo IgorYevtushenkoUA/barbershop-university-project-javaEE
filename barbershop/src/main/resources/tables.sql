@@ -1,11 +1,11 @@
--- table role
+-- table role #done
 create table role
 (
     role_id serial PRIMARY KEY,
     name    varchar(32) NOT NULL
 );
 
--- table account
+-- table account  #done
 create table account
 (
     account_id   serial primary key,
@@ -23,14 +23,14 @@ create table account
             references role (role_id)
 );
 
--- table status
+-- table status todo
 create table status
 (
     status_id serial primary key,
     name      varchar(32) not null
 );
 
--- table level
+-- table level  #done
 create table level
 (
     level_id serial primary key,
@@ -61,7 +61,6 @@ create table master
             references level (level_id),
     constraint master_master_id_pk
         primary key (master_id)
-
 );
 
 -- table master_has_procedure

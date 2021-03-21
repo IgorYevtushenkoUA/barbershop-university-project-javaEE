@@ -1,7 +1,7 @@
 //package com.example.barbershop.service;
 //
-//import com.example.barbershop.entity.RoleEntity;
-//import com.example.barbershop.repository.RoleRepository;
+//import com.example.barbershop.entity.LevelEntity;
+//import com.example.barbershop.repository.LevelRepository;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.stereotype.Service;
 //import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +11,12 @@
 //@Service
 //@Transactional
 //@RequiredArgsConstructor
-//public class RoleService {
+//public class LevelService {
 //
-//    public final RoleRepository roleRepository;
+//    private final LevelRepository levelRepository;
 //
-//    public List<RoleEntity> findAllRoles(){
-//        return roleRepository.findAll();
+//    public List<LevelEntity> findAllLevel(){
+//        return levelRepository.findAll();
 //    }
 //
 //}

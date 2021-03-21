@@ -22,8 +22,7 @@
 //    @Column(name = "name")
 //    private String name;
 //
-//    //
-////    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level" )
-////    @ToString.Exclude private List<MasterEntity> mastersLevel;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "level" )
+//    @ToString.Exclude private List<MasterEntity> mastersLevel;
 //
 //}

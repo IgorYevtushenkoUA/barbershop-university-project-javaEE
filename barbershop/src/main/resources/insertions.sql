@@ -1,4 +1,4 @@
--- insert role
+-- insert role #done
 INSERT INTO public.role (name)
 VALUES ('admin');
 INSERT INTO public.role (name)
@@ -6,7 +6,7 @@ VALUES ('master');
 INSERT INTO public.role (name)
 VALUES ('client');
 
--- insert account
+-- insert account #done
 INSERT INTO public.account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender) VALUES ('admin@gmail.com', 'password', 1, '111-11-01', 'admin', 'admin', 'admin', 27, 'w');
 INSERT INTO public.account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender) VALUES ('master1@gmail.com', 'mstrea1', 2, '222-22-02', 'master', 'master', 'master', 30, 'm');
 INSERT INTO public.account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender) VALUES ('master2@gmail.com', 'masert2', 2, '222-22-03', 'James', 'Tom', 'Bush', 37, 'm');
@@ -19,19 +19,19 @@ INSERT INTO public.account (email, password, role_id, phone_number, first_name, 
 INSERT INTO public.account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender) VALUES ( 'client5@gmail.com', 'cl5etnf', 3, '333-33-05', 'client5', 'client5', 'client5', 28, 'm');
 INSERT INTO public.account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender) VALUES ( 'client6@gmail.com', 'ielcnt6', 3, '333-33-06', 'client6', 'client6', 'client6', 35, 'm');
 
--- insert status
+-- insert status todo
 INSERT INTO public.status (name)
 VALUES ('confirmed');
 INSERT INTO public.status (name)
 VALUES ('done');
 
--- insert level
+-- insert level #done
 INSERT INTO public.level (name)
 VALUES ('trainee');
 INSERT INTO public.level (name)
 VALUES ('master');
 
--- insert procedure
+-- insert procedure #done
 INSERT INTO public.procedure (name, price, duration)
 VALUES ('Haircut (including fade)', 400, 30);
 INSERT INTO public.procedure (name, price, duration)
@@ -47,7 +47,7 @@ VALUES ('Gray hair camouflage', 350, 30);
 INSERT INTO public.procedure (name, price, duration)
 VALUES ('Father + son', 650, 30);
 
--- insert master
+-- insert master #done
 INSERT INTO public.master (master_id, work_experience, rating, level_id)
 VALUES (2, 5, 4.8, 2);
 INSERT INTO public.master (master_id, work_experience, rating, level_id)
@@ -57,7 +57,7 @@ VALUES (4, 10, 5, 2);
 INSERT INTO public.master (master_id, work_experience, rating, level_id)
 VALUES (5, 1, 4.2, 1);
 
--- insert master_has_procedure
+-- insert master_has_procedure #done
 INSERT INTO public.master_has_procedure (master_id, procedure_id)
 VALUES (2, 1);
 INSERT INTO public.master_has_procedure (master_id, procedure_id)
