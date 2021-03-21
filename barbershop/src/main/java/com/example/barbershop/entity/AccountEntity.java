@@ -20,13 +20,13 @@ public class AccountEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
-    @Column(name = "email", length=128, nullable = false)
+    @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
 
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @Column(name = "role_id")
     private Integer roleId;
 
     @Column(name = "phone_number")
@@ -47,5 +47,9 @@ public class AccountEntity {
     // may change char -> String xz
     @Column(name = "gender")
     private char gender;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @ToString.Exclude private RoleEntity role;
 
 }

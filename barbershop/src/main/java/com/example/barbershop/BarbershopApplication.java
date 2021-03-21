@@ -1,5 +1,6 @@
 package com.example.barbershop;
 
+import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.CommentEntity;
 import com.example.barbershop.entity.MasterHasProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
@@ -19,23 +20,9 @@ public class BarbershopApplication {
     public static void accountExam(ApplicationContext applicationContext) {
 
         AccountService accountService = applicationContext.getBean(AccountService.class);
-        System.out.println(accountService.getAccountByEmailAndPassword("admin@gmail.com", "password"));
+        AccountEntity account = accountService.getAccountByEmailAndPassword("admin@gmail.com", "password");
+        System.out.println(account);
+        System.out.println(account.getRole());
 
-
-//        AccountService accountService = applicationContext.getBean(AccountService.class);
-        //        accountService.updateAccountById(
-//                1,
-//                "update@gmail.com",
-//                "update1",
-//                2,
-//                "000-00-07",
-//                "update1",
-//                "update1",
-//                "update1",
-//                21,
-//                'M'
-//                );
     }
-
-
 }

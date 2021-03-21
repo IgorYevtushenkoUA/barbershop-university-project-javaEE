@@ -25,6 +25,17 @@ public class MasterEntity {
     @Column(name = "rating")
     private Integer rating;
 
-    @JoinColumn(name = "level_id", insertable = false, updatable = false)
+    @Column(name = "level_id", insertable = false, updatable = false)
     private Integer levelId;
+
+    // in table master_has_procedure
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
+    @ToString.Exclude private ProcedureEntity procedure;
+
+    // FK for level_id
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "level_id", insertable = false, updatable = false)
+    @ToString.Exclude private LevelEntity level;
+
 }

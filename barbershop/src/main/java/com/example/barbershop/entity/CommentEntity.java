@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "comment")
@@ -20,7 +21,7 @@ public class CommentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer commentId;
 
-    @JoinColumn(name="record_id")
+    @Column(name="record_id")
     private Integer recordId;
 
     @Column(name = "user_comment")
@@ -31,4 +32,8 @@ public class CommentEntity {
 
     @Column(name = "comment_time")
     private Date commentTime;
+
+    @OneToOne(mappedBy = "comment")
+    @ToString.Exclude private RecordEntity recorderComment;
+
 }

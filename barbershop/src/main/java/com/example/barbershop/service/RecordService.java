@@ -38,28 +38,28 @@ public class RecordService {
      * todo test method
      * edit record by Id
      */
-    @Transactional
-    public void editRecordById(
-            int recordId,
-            int clientId,
-            int masterId,
-            int procedureId,
-            Date recordTime,
-            int statusId,
-            Date procedureTimeRecord
-    ) {
-        RecordEntity updatedRecord = new RecordEntity(
-                recordId,
-                clientId,
-                masterId,
-                procedureId,
-                recordTime,
-                statusId,
-                procedureTimeRecord
-        );
-        entityManager.merge(updatedRecord);
-        System.out.println("getRecordById");
-    }
+//    @Transactional
+//    public void editRecordById(
+//            int recordId,
+//            int clientId,
+//            int masterId,
+//            int procedureId,
+//            Date recordTime,
+//            int statusId,
+//            Date procedureTimeRecord
+//    ) {
+//        RecordEntity updatedRecord = new RecordEntity(
+//                recordId,
+//                clientId,
+//                masterId,
+//                procedureId,
+//                recordTime,
+//                statusId,
+//                procedureTimeRecord
+//        );
+//        entityManager.merge(updatedRecord);
+//        System.out.println("getRecordById");
+//    }
 
     /**
      * todo test method

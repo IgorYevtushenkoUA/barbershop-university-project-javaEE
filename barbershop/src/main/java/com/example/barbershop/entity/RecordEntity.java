@@ -20,26 +20,31 @@ public class RecordEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer recordId;
 
-    @JoinColumn(name = "client_id", insertable = false, updatable = false)
+    @Column(name = "client_id", insertable = false, updatable = false)
     private Integer clientId;
 
-    @JoinColumn(name = "master_id", insertable = false, updatable = false)
+    @Column(name = "master_id", insertable = false, updatable = false)
     private Integer masterId;
 
-    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
+    @Column(name = "procedure_id", insertable = false, updatable = false)
     private Integer procedureId;
 
     @Column(name = "record_time")
     private Date recordTime;
 
-    @JoinColumn(name = "status_id", insertable = false, updatable = false)
+    @Column(name = "status_id", insertable = false, updatable = false)
     private Integer statusId;
 
     @Column(name = "procedure_time_record")
     private Date procedureTimeRecord;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "status_id", insertable = false, updatable = false)
+    @ToString.Exclude private StatusEntity status;
 
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "comment_id", referencedColumnName = "comment_id")
+    private CommentEntity comment;
 
 
 }

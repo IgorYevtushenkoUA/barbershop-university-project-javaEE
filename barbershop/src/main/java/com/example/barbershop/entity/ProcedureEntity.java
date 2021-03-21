@@ -3,6 +3,7 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "procedure")
@@ -27,7 +28,7 @@ public class ProcedureEntity {
     @Column(name = "duration")
     private Integer duration;
 
-
-
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
+    @ToString.Exclude private List<MasterEntity> mastersProcedure;
 
 }

@@ -3,6 +3,7 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "status")
@@ -20,5 +21,9 @@ public class StatusEntity {
 
     @Column(name = "name")
     private String name;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "status" )
+    @ToString.Exclude private List<RecordEntity> recordersStatus;
+
 
 }
