@@ -43,9 +43,8 @@ public class RecordEntity {
     @JoinColumn(name = "status_id", insertable = false, updatable = false)
     @ToString.Exclude private StatusEntity status;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "comment_id", referencedColumnName = "comment_id")
-    private CommentEntity comment;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "record")
+    @ToString.Exclude private List<CommentEntity> comment;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "master_id", insertable = false, updatable = false)

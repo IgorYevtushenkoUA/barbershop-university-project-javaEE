@@ -29,7 +29,11 @@ public class AccountService {
     }
 
     public AccountEntity findAccountById(int accountId){
-        return accountRepository.findById(accountId).stream().findFirst().orElse(null);
+        return accountRepository
+                .findById(accountId)
+                .stream()
+                .findFirst()
+                .orElse(null);
     }
 
     public List<AccountEntity> findAllAccounts(){

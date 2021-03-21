@@ -19,7 +19,7 @@ public class BarbershopApplication {
 
         AccountService accountService = applicationContext.getBean(AccountService.class);
 //        System.out.println(accountService.findAccountById(1));
-//        System.out.println(accountService.findAllAccounts());
+        System.out.println(accountService.findAllAccounts());
 //        System.out.println(accountService.findAllMasterByRole());
 
 //        RoleService roleService = applicationContext.getBean(RoleService.class);

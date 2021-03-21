@@ -5,6 +5,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "account")
@@ -55,8 +56,10 @@ public class AccountEntity {
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     @ToString.Exclude private RoleEntity role;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "account_id", insertable = false, updatable = false)
-    @ToString.Exclude private RecordEntity record;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+    @ToString.Exclude private List<RecordEntity> records;
+
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role" )
+//    @ToString.Exclude private List<AccountEntity> accountsRole;
 
 }

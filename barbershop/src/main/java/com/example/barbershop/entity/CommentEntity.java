@@ -33,7 +33,8 @@ public class CommentEntity {
     @Column(name = "comment_time")
     private Date commentTime;
 
-    @OneToOne(mappedBy = "comment")
-    @ToString.Exclude private RecordEntity recorderComment;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "record_id", insertable = false, updatable = false)
+    @ToString.Exclude private RecordEntity record;
 
 }
