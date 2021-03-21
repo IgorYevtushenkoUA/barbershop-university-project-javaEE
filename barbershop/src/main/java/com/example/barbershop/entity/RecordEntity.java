@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "record")
@@ -46,5 +47,16 @@ public class RecordEntity {
     @JoinColumn(name = "comment_id", referencedColumnName = "comment_id")
     private CommentEntity comment;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "master_id", insertable = false, updatable = false)
+    @ToString.Exclude private MasterEntity master;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id", insertable = false, updatable = false)
+    @ToString.Exclude private AccountEntity account;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
+    @ToString.Exclude private ProcedureEntity procedure;
 
 }

@@ -2,6 +2,7 @@ package com.example.barbershop.entity;
 
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
@@ -13,6 +14,8 @@ import javax.persistence.*;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder                                   // add
+@Inheritance(strategy = InheritanceType.JOINED) // add
 public class AccountEntity {
 
     @Id
@@ -51,5 +54,9 @@ public class AccountEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     @ToString.Exclude private RoleEntity role;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "account_id", insertable = false, updatable = false)
+    @ToString.Exclude private RecordEntity record;
 
 }

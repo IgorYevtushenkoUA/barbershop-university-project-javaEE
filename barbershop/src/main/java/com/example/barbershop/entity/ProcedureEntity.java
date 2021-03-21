@@ -31,4 +31,7 @@ public class ProcedureEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
     @ToString.Exclude private List<MasterEntity> mastersProcedure;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
+    @ToString.Exclude private List<RecordEntity> recordsProcedure;
+
 }

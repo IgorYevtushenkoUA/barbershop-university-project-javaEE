@@ -1,8 +1,10 @@
 package com.example.barbershop.entity;
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "master")
@@ -12,12 +14,13 @@ import javax.persistence.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class MasterEntity {
+@SuperBuilder
+public class MasterEntity extends AccountEntity{
 
-    @Id
-    @JoinColumn(name = "master_id") // todo JoinColumn may change -> because
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer masterId;
+//    @Id
+//    @JoinColumn(name = "master_id") // todo JoinColumn may change -> because
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private Integer masterId;
 
     @Column(name = "work_experience")
     private Integer workExperience;
@@ -37,5 +40,8 @@ public class MasterEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "level_id", insertable = false, updatable = false)
     @ToString.Exclude private LevelEntity level;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "master" )
+    @ToString.Exclude private List<RecordEntity> recordersMaster;
 
 }
