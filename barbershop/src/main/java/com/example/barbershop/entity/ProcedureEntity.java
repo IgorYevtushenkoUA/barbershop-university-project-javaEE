@@ -28,8 +28,11 @@ public class ProcedureEntity {
     @Column(name = "duration")
     private Integer duration;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
-    @ToString.Exclude private List<MasterEntity> mastersProcedure;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
+//    @ToString.Exclude private List<MasterEntity> mastersProcedure;
+
+    @ManyToMany(mappedBy = "procedures")
+    private List<MasterEntity> masters;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
     @ToString.Exclude private List<RecordEntity> recordsProcedure;

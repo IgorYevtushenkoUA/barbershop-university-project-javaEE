@@ -32,9 +32,17 @@ public class MasterEntity extends AccountEntity{
     private Integer levelId;
 
     // in table master_has_procedure
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
-    @ToString.Exclude private ProcedureEntity procedure;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
+//    @ToString.Exclude private ProcedureEntity procedure;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "master_has_procedure",
+            joinColumns = @JoinColumn(name = "master_id"),
+            inverseJoinColumns = @JoinColumn(name = "procedure_id"))
+    private List<ProcedureEntity> procedures;
+
+
 
     // FK for level_id
     @ManyToOne(fetch = FetchType.EAGER)
