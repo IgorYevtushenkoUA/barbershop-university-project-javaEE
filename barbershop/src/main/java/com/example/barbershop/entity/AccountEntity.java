@@ -33,6 +33,11 @@ public class AccountEntity {
     @Column(name = "role_id")
     private Integer roleId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @ToString.Exclude private RoleEntity role;
+
+
     @Column(name = "phone_number")
     private String phoneNumber;
 
@@ -52,14 +57,8 @@ public class AccountEntity {
     @Column(name = "gender")
     private char gender;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
-    @ToString.Exclude private RoleEntity role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
-    @ToString.Exclude private List<RecordEntity> records;
-
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "role" )
-//    @ToString.Exclude private List<AccountEntity> accountsRole;
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account")
+//    @ToString.Exclude private List<RecordEntity> records;
 
 }
