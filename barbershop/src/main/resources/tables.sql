@@ -23,14 +23,14 @@ create table account
             references role (role_id)
 );
 
--- table status todo
+-- table status
 create table status
 (
     status_id serial primary key,
     name      varchar(32) not null
 );
 
--- table level  #done
+-- table level
 create table level
 (
     level_id serial primary key,
@@ -49,28 +49,40 @@ create table procedure
 -- table master
 create table master
 (
-    master_id       serial           not null,
+    account_id       integer primary key,
     work_experience integer          not null,
     rating          double precision not null,
     level_id        integer          not null,
     constraint fk_master_account_id
-        foreign key (master_id)
+        foreign key (account_id)
             references account (account_id),
     constraint fk_master_level_id
         foreign key (level_id)
-            references level (level_id),
-    constraint master_master_id_pk
-        primary key (master_id)
+            references level (level_id)
 );
+-- admin
+create table admin
+(
+    account_id integer primary key,
+    constraint fk_admin_account foreign key (account_id) references account (account_id)
+)
+
+-- client
+create table client
+(
+    account_id integer primary key,
+    constraint fk_admin_account foreign key (account_id) references account (account_id)
+)
+
 
 -- table master_has_procedure
 create table master_has_procedure
 (
     master_id    integer not null,
     procedure_id integer not null,
-    constraint fk_master_has_procedure_master_id
+    constraint fk_master_has_procedure_account_id
         foreign key (master_id)
-            references master (master_id),
+            references master (account_id),
     constraint fk_master_has_procedure_procedure_id
         foreign key (procedure_id)
             references procedure (procedure_id),
@@ -89,10 +101,10 @@ create table record
     procedure_time_record timestamp not null,
     constraint fk_record_client_id
         foreign key (client_id)
-            references account (account_id),
+            references client (account_id),
     constraint fk_record_master_id
         foreign key (master_id)
-            references master (master_id),
+            references master (account_id),
     constraint fk_record_procedure_id
         foreign key (procedure_id)
             references procedure (procedure_id),
