@@ -1,4 +1,46 @@
-//package com.example.barbershop.service;
+package com.example.barbershop.service;
+
+
+import com.example.barbershop.entity.AccountEntity;
+import com.example.barbershop.repository.AccountRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class AccountService{
+
+//    private final EntityManager entityManager;
+//
+//    @Transactional
+//    public <T extends AccountEntity> T saveNewAccount(T account){
+//        return entityManager.merge(account);
+//    }
+//
+//    public <T extends AccountEntity> T getAccountById(int id, Class<T> accountClass){
+//        return entityManager.find(accountClass, id);
+//    }
+//
+//    public List<? extends AccountEntity> getAllAccounts(){
+//        return entityManager.createQuery("select a FROM AccountEntity a", AccountEntity.class)
+//                .getResultList();
+//    }
+
+    private final AccountRepository accountRepository;
+
+    public List<? extends AccountEntity> getAllAccounts(){
+        return accountRepository.findAllAccounts();
+    }
+
+
+
+}
+
+
 //
 //import com.example.barbershop.entity.AccountEntity;
 //import com.example.barbershop.repository.AccountRepository;
