@@ -1,10 +1,7 @@
 package com.example.barbershop;
 
 import com.example.barbershop.entity.*;
-import com.example.barbershop.service.AccountService;
-import com.example.barbershop.service.CommentService;
-import com.example.barbershop.service.MasterService;
-import com.example.barbershop.service.ProcedureService;
+import com.example.barbershop.service.*;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
@@ -32,18 +29,29 @@ public class BarbershopApplication {
         MasterService masterService = applicationContext.getBean(MasterService.class);
         ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
         CommentService commentService = applicationContext.getBean(CommentService.class);
+        RecordService recordService = applicationContext.getBean(RecordService.class);
 
-        System.out.println(commentService.findAllCommentsByProcedure(5));
-
-        CommentEntity comment = new CommentEntity();
-        comment.setRecordId(1);
-        comment.setCommentTime(new Date());
-        comment.setUserComment("norm voobshe");
-        comment.setRating(5);
+        RecordEntity record = new RecordEntity();
+        record.setClientId(6);
+        record.setMasterId(5);
+        record.setProcedureId(2);
+        record.setRecordTime(new Date());
+        record.setStatusId(1);
+        record.setProcedureTimeRecord(new Date());
 
         System.out.println(1);
-        commentService.deleteCommentById(5);
+        recordService.addRecord(record);
         System.out.println(2);
+
+//        CommentEntity comment = new CommentEntity();
+//        comment.setRecordId(1);
+//        comment.setCommentTime(new Date());
+//        comment.setUserComment("norm voobshe");
+//        comment.setRating(5);
+//
+//        System.out.println(1);
+//        commentService.deleteCommentById(5);
+//        System.out.println(2);
 
 
 

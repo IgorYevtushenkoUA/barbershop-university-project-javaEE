@@ -17,7 +17,7 @@ public class StatusEntity {
     @Id
     @Column(name = "status_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleId;
+    private Integer statusId;
 
     @Column(name = "name")
     private String name;
