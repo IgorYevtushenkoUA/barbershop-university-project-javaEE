@@ -50,4 +50,7 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     AccountEntity findAccountByEmailAndPassword(@Param("email") String email,
                                                       @Param("password") String password);
 
+    @Query("select a from AccountEntity a where a.roleId in (select r.roleId from RoleEntity r where r.name=:name)")
+    List<AccountEntity> findAccountByRole(@Param("name") String name);
+
 }

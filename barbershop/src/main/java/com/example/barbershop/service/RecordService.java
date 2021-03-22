@@ -15,36 +15,50 @@ public class RecordService {
 
     private final RecordRepository recordRepository;
 
-    public List<RecordRepository> findAllRecords() {
+    public List<RecordEntity> findAllRecords() {
         return recordRepository.findAllRecords();
     }
 
-    public RecordRepository findRecordById(int id) {
+    public RecordEntity findRecordById(int id) {
         return recordRepository.findRecordById(id);
     }
 
-    public List<RecordRepository> findAllRecordsByMasterId(int masterId) {
+    public List<RecordEntity> findAllRecordsByMasterId(int masterId) {
         return recordRepository.findAllRecordsByMasterId(masterId);
     }
 
-    public List<RecordRepository> findAllRecordsByClientId(int masterId) {
+    public List<RecordEntity> findAllRecordsByClientId(int masterId) {
         return recordRepository.findAllRecordsByClientId(masterId);
     }
 
-    public List<RecordRepository> findAllRecordsByProcedureId(int procedureId) {
+    public List<RecordEntity> findAllRecordsByProcedureId(int procedureId) {
         return recordRepository.findAllRecordsByProcedureId(procedureId);
     }
 
-    public List<RecordRepository> findAllRecordsByStatusId(int statusId) {
+    public List<RecordEntity> findAllRecordsByStatusId(int statusId) {
         return recordRepository.findAllRecordsByStatusId(statusId);
     }
 
-    public List<RecordRepository> findAllRecordsByStatusName(String status) {
+    public List<RecordEntity> findAllRecordsByStatusName(String status) {
         return recordRepository.findAllRecordsByStatusName(status);
     }
 
     public void addRecord(RecordEntity record) {
         recordRepository.save(record);
+    }
+
+    public void updateRecord(RecordEntity record) {
+        RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId());
+        if (updatedRecord != null) {
+            updatedRecord.setClientId(record.getClientId());
+            updatedRecord.setMasterId(record.getMasterId());
+            updatedRecord.setProcedureId(record.getProcedureId());
+            updatedRecord.setRecordTime(record.getRecordTime());
+            updatedRecord.setStatusId(record.getStatusId());
+            updatedRecord.setProcedureTimeRecord(record.getProcedureTimeRecord());
+
+            recordRepository.save(updatedRecord);
+        }
     }
 
 //    public List<RecordRepository> findAllRecordsByForLastWeek(){    }

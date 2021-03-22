@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 
 import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class BarbershopApplication {
@@ -15,13 +14,6 @@ public class BarbershopApplication {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(BarbershopApplication.class, args);
         testAccount(applicationContext);
-//        testMaster(applicationContext);
-    }
-
-    public static void testMaster(ApplicationContext applicationContext) {
-        MasterService masterService = applicationContext.getBean(MasterService.class);
-        System.out.println(masterService.findAllMaster().size());
-
     }
 
     public static void testAccount(ApplicationContext applicationContext) {
@@ -39,9 +31,7 @@ public class BarbershopApplication {
         record.setStatusId(1);
         record.setProcedureTimeRecord(new Date());
 
-        System.out.println(1);
-        recordService.addRecord(record);
-        System.out.println(2);
+        System.out.println(recordService.findAllRecords());
 
 //        CommentEntity comment = new CommentEntity();
 //        comment.setRecordId(1);

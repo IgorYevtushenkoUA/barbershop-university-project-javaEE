@@ -1,20 +1,15 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.entity.AccountEntity;
-import com.example.barbershop.entity.LevelEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
-import com.example.barbershop.repository.AccountRepository;
 import com.example.barbershop.repository.MasterRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,8 +18,6 @@ import java.util.stream.Collectors;
 public class MasterService {
 
     private final MasterRepository masterRepository;
-    private final AccountRepository accountRepository;
-
 
     @Autowired
     AccountService accountService;
@@ -71,7 +64,35 @@ public class MasterService {
         }
     }
 
+    public List<ProcedureEntity> findAllMastersProcedure(MasterEntity master) {
+        return master.getProcedures();
+    }
 
-    /* update procedure */
+    public List<ProcedureEntity> findAllMastersProcedure(int masterId) {
+        MasterEntity master = masterRepository.findMasterById(masterId);
+        return master != null
+                ? master.getProcedures()
+                : null;
+    }
+
+    public void updateMaster(MasterEntity master) {
+        MasterEntity updatedMaster = masterRepository.findMasterById(master.getAccountId());
+        if (updatedMaster != null) {
+            updatedMaster.setEmail(master.getEmail());
+            updatedMaster.setPassword(master.getPassword());
+            updatedMaster.setRoleId(master.getRoleId());
+            updatedMaster.setPhoneNumber(master.getPhoneNumber());
+            updatedMaster.setFirstName(master.getFirstName());
+            updatedMaster.setSecondName(master.getSecondName());
+            updatedMaster.setLastName(master.getLastName());
+            updatedMaster.setAge(master.getAge());
+            updatedMaster.setGender(master.getGender());
+            updatedMaster.setWorkExperience(master.getWorkExperience());
+            updatedMaster.setRating(master.getRating());
+            updatedMaster.setLevelId(master.getLevelId());
+
+            masterRepository.save(updatedMaster);
+        }
+    }
 
 }

@@ -2,6 +2,7 @@ package com.example.barbershop.repository;
 
 import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.MasterEntity;
+import com.example.barbershop.entity.ProcedureEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,8 +28,5 @@ public interface MasterRepository extends JpaRepository<MasterEntity, Integer> {
 
     @Query("select m from MasterEntity m where m.accountId=:accountId")
     MasterEntity findMasterById(@Param("accountId") int accountId);
-
-
-
 
 }

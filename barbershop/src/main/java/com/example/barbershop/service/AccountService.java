@@ -58,6 +58,10 @@ public class AccountService {
         }
     }
 
+    public List<AccountEntity> findAccountByRole(String role){
+        return accountRepository.findAccountByRole(role);
+    }
+
     /* delete account by id */
     public void deleteAccountById(int accountId) {
         if (accountRepository.findAccountById(accountId) != null)
