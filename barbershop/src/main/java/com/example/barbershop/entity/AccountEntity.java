@@ -48,4 +48,10 @@ public abstract class AccountEntity {
     @Column(name = "gender", nullable = false)
     private char gender;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private RoleEntity accountRole;
+
+
 }

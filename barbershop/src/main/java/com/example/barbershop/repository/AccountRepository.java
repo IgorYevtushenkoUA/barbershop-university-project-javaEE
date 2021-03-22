@@ -8,30 +8,30 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-//@Repository
 public interface AccountRepository extends JpaRepository<AccountEntity, Integer> {
 
     @Query("select a from AccountEntity a")
-    List<? extends AccountEntity> findAllAccounts();
+    List<AccountEntity> findAllAccounts();
+    // <? extends AccountEntity>
 
 
     @Query("select a from AccountEntity a where a.accountId=:accountId")
     AccountEntity findAccountById(@Param("accountId") int accountId);
 
-//    /** find all admins */
-//    @Query("select a from AccountEntity a where a.roleId in " +
-//            "(select r.roleId from RoleEntity r where r.name='admin')")
-//    List<AccountEntity> findAllAdminByRole();
-//
-//    /** find all clients */
-//    @Query("select a from AccountEntity a where a.roleId in " +
-//            "(select r.roleId from RoleEntity r where r.name='client')")
-//    List<AccountEntity> findAllClientByRole();
-//
-//    /** find all masters */
-//    @Query("select a from AccountEntity a where a.roleId in " +
-//            "(select r.roleId from RoleEntity r where r.name='master')")
-//    List<AccountEntity> findAllMasterByRole();
+    /** find all admins */
+    @Query("select a from AccountEntity a where a.roleId in " +
+            "(select r.roleId from RoleEntity r where r.name='admin')")
+    List<AccountEntity> findAllAdmin();
+
+    /** find all clients */
+    @Query("select a from AccountEntity a where a.roleId in " +
+            "(select r.roleId from RoleEntity r where r.name='client')")
+    List<AccountEntity> findAllClient();
+
+    /** find all masters */
+    @Query("select a from AccountEntity a where a.roleId in " +
+            "(select r.roleId from RoleEntity r where r.name='master')")
+    List<AccountEntity> findAllMaster();
 
     @Query("select a from AccountEntity a where a.firstName LIKE :firstName")
     List<AccountEntity> findAccountByFirstName(@Param("firstName") String firstName);
