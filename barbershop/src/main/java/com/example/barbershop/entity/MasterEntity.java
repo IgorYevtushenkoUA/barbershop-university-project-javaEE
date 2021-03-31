@@ -1,10 +1,12 @@
 package com.example.barbershop.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 @ToString(callSuper = true)
@@ -26,8 +28,12 @@ public class MasterEntity extends AccountEntity {
 //    @EmbeddedId
 //    private MasterLevelId masterLevelId;
 
-    @JoinColumn(name = "level_id", insertable = false, updatable = false)
+    @Column(name = "level_id", insertable = false, updatable = false)
     private Integer levelId;
+
+    @OneToOne
+    @JoinColumn(name = "level_id")
+    private LevelEntity level;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "master_has_procedure",

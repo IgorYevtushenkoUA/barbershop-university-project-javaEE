@@ -1,12 +1,12 @@
 -- table role #done
-create table role
+create table if not exists role
 (
     role_id serial PRIMARY KEY,
     name    varchar(32) NOT NULL
 );
 
 -- table account  #done
-create table account
+create table if not exists account
 (
     account_id   serial primary key,
     email        varchar(128) not null,
@@ -24,30 +24,30 @@ create table account
 );
 
 -- table status
-create table status
+create table if not exists status
 (
     status_id serial primary key,
     name      varchar(32) not null
 );
 
 -- table level
-create table level
+create table if not exists level
 (
     level_id serial primary key,
     name     varchar(32)
 );
 
 -- table procedure
-create table procedure
+create table if not exists procedure
 (
     procedure_id serial primary key,
     name         varchar(64) not null,
     price        integer     not null,
-    duration     integer     not null
+    duration     integer    not null
 );
 
 -- table master
-create table master
+create table if not exists master
 (
     account_id       integer primary key,
     work_experience integer          not null,
@@ -61,22 +61,22 @@ create table master
             references level (level_id)
 );
 -- admin
-create table admin
+create table if not exists admin
 (
     account_id integer primary key,
     constraint fk_admin_account foreign key (account_id) references account (account_id)
-)
+);
 
 -- client
-create table client
+create table if not exists client
 (
     account_id integer primary key,
     constraint fk_admin_account foreign key (account_id) references account (account_id)
-)
+);
 
 
 -- table master_has_procedure
-create table master_has_procedure
+create table if not exists master_has_procedure
 (
     master_id    integer not null,
     procedure_id integer not null,
@@ -90,7 +90,7 @@ create table master_has_procedure
         primary key (master_id, procedure_id)
 );
 
-create table record
+create table if not exists record
 (
     record_id             serial primary key,
     client_id             integer   not null,
@@ -98,7 +98,8 @@ create table record
     procedure_id          integer   not null,
     record_time           timestamp not null,
     status_id             integer   not null,
-    procedure_time_record timestamp not null,
+    procedure_start timestamp not null,
+    procedure_finish timestamp not null,
     constraint fk_record_client_id
         foreign key (client_id)
             references client (account_id),
@@ -114,7 +115,7 @@ create table record
 );
 
 -- table comment
-create table comment
+create table if not exists comment
 (
     comment_id   serial primary key,
     record_id    integer not null,

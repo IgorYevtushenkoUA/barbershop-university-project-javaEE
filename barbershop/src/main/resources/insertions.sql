@@ -46,7 +46,7 @@ VALUES ('master');
 INSERT INTO procedure (name, price, duration)
 VALUES ('Haircut (including fade)', 400, 30);
 INSERT INTO procedure (name, price, duration)
-VALUES ('Haircut with a clipper', 300, 30);
+VALUES ('Haircut with a clipper', 300, 45);
 INSERT INTO procedure (name, price, duration)
 VALUES ('Beard', 300, 30);
 INSERT INTO procedure (name, price, duration)
@@ -123,38 +123,38 @@ INSERT INTO master_has_procedure (master_id, procedure_id)
 VALUES (5, 6);
 
 -- insert record
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (6, 2, 1, '2021-01-10 10:00:00.000000', 2, '2021-01-11 10:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (7, 2, 2, '2021-01-12 10:00:00.000000', 2, '2021-01-13 11:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (7, 3, 1, '2021-01-12 19:00:00.000000', 2, '2021-01-13 15:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (7, 3, 1, '2021-01-13 14:00:00.000000', 2, '2021-01-20 13:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (7, 4, 1, '2021-01-15 15:00:00.000000', 2, '2021-01-20 14:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (8, 5, 2, '2021-01-17 14:00:00.000000', 2, '2021-01-20 15:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (8, 5, 6, '2021-01-20 11:00:00.000000', 2, '2021-01-25 16:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (8, 2, 3, '2021-01-21 12:00:00.000000', 2, '2021-01-25 17:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (9, 2, 4, '2021-01-21 17:00:00.000000', 2, '2021-01-25 18:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (9, 4, 7, '2021-01-22 15:00:00.000000', 2, '2021-01-25 19:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (9, 4, 7, '2021-01-25 15:00:00.000000', 2, '2021-01-26 10:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (9, 4, 5, '2021-01-25 15:00:00.000000', 2, '2021-01-27 11:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (10, 4, 3, '2021-01-25 15:00:00.000000', 2, '2021-01-28 12:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (10, 3, 3, '2021-01-27 14:00:00.000000', 1, '2021-02-05 13:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (10, 3, 2, '2021-01-27 13:00:00.000000', 1, '2021-02-06 00:00:00.000000');
-INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_time_record)
-VALUES (11, 2, 1, '2021-01-28 11:00:00.000000', 1, '2021-02-10 20:00:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (6, 2, 1, '2021-01-10 10:00:00.000000', 2, '2021-01-11 10:00:00.000000', '2021-01-11 10:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (7, 2, 2, '2021-01-12 10:00:00.000000', 2, '2021-01-13 11:00:00.000000', '2021-01-13 11:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (7, 3, 1, '2021-01-12 19:00:00.000000', 2, '2021-01-13 15:00:00.000000', '2021-01-13 15:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (7, 3, 1, '2021-01-13 14:00:00.000000', 2, '2021-01-20 13:00:00.000000', '2021-01-20 13:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (7, 4, 1, '2021-01-15 15:00:00.000000', 2, '2021-01-20 14:00:00.000000', '2021-01-20 14:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (8, 5, 2, '2021-01-17 14:00:00.000000', 2, '2021-01-20 15:00:00.000000', '2021-01-20 15:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (8, 5, 6, '2021-01-20 11:00:00.000000', 2, '2021-01-25 16:00:00.000000', '2021-01-25 16:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (8, 2, 3, '2021-01-21 12:00:00.000000', 2, '2021-01-25 17:00:00.000000', '2021-01-25 17:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (9, 2, 4, '2021-01-21 17:00:00.000000', 2, '2021-01-25 18:00:00.000000', '2021-01-25 18:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (9, 4, 7, '2021-01-22 15:00:00.000000', 2, '2021-01-25 19:00:00.000000', '2021-01-25 19:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (9, 4, 7, '2021-01-25 15:00:00.000000', 2, '2021-01-26 10:00:00.000000', '2021-01-26 10:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (9, 4, 5, '2021-01-25 15:00:00.000000', 2, '2021-01-27 11:00:00.000000', '2021-01-27 11:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (10, 4, 3, '2021-01-25 15:00:00.000000', 2, '2021-01-28 12:00:00.000000', '2021-01-28 12:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (10, 3, 3, '2021-01-27 14:00:00.000000', 1, '2021-02-05 13:00:00.000000', '2021-02-05 13:30:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (10, 3, 2, '2021-01-27 13:00:00.000000', 1, '2021-02-06 10:00:00.000000', '2021-02-06 10:45:00.000000');
+INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
+VALUES (11, 2, 1, '2021-01-28 11:00:00.000000', 1, '2021-02-10 20:00:00.000000', '2021-02-10 20:30:00.000000');
 
 -- insert comment
 INSERT INTO comment (record_id, user_comment, rating, comment_time)
