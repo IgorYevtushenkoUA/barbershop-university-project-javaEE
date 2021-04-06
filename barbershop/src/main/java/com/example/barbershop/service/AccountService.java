@@ -1,8 +1,12 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.entity.AccountEntity;
+import com.example.barbershop.entity.RoleEntity;
 import com.example.barbershop.repository.AccountRepository;
+import com.example.barbershop.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +18,34 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private final PasswordEncoder passwordEncoder;
+
+    public AccountEntity saveAccount(AccountEntity accountEntity, String roleName){
+        RoleEntity accountRole = roleRepository.findByName(roleName);
+        accountEntity.setRoleId(accountRole.getRoleId());
+        accountEntity.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+
+        return accountRepository.save(accountEntity);
+    }
+
+    public AccountEntity findByEmail(String email){
+        return accountRepository.findByEmail(email);
+    }
+
+    public AccountEntity findByEmailAndPassword(String email, String password){
+        AccountEntity accountEntity = findByEmail(email);
+        if (accountEntity!=null){
+            if (passwordEncoder.matches(password, accountEntity.getPassword())){
+                return accountEntity;
+            }
+        }
+        return null;
+    }
 
     public List<? extends AccountEntity> findAllAdmin() {
         return accountRepository.findAllAdmin();

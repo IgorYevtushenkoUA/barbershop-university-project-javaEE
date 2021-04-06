@@ -14,21 +14,32 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     List<AccountEntity> findAllAccounts();
     // <? extends AccountEntity>
 
+    @Query("select a from AccountEntity a where a.email=:email")
+    AccountEntity findByEmail(@Param("email") String email);
+
+    @Query("select a from AccountEntity a where a.email=:email and a.password=:password")
+    AccountEntity findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 
     @Query("select a from AccountEntity a where a.accountId=:accountId")
     AccountEntity findAccountById(@Param("accountId") int accountId);
 
-    /** find all admins */
+    /**
+     * find all admins
+     */
     @Query("select a from AccountEntity a where a.roleId in " +
             "(select r.roleId from RoleEntity r where r.name='admin')")
     List<AccountEntity> findAllAdmin();
 
-    /** find all clients */
+    /**
+     * find all clients
+     */
     @Query("select a from AccountEntity a where a.roleId in " +
             "(select r.roleId from RoleEntity r where r.name='client')")
     List<AccountEntity> findAllClient();
 
-    /** find all masters */
+    /**
+     * find all masters
+     */
     @Query("select a from AccountEntity a where a.roleId in " +
             "(select r.roleId from RoleEntity r where r.name='master')")
     List<AccountEntity> findAllMaster();
@@ -48,7 +59,7 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
 
     @Query("select a from AccountEntity a where a.email=:email and a.password=:password")
     AccountEntity findAccountByEmailAndPassword(@Param("email") String email,
-                                                      @Param("password") String password);
+                                                @Param("password") String password);
 
     @Query("select a from AccountEntity a where a.roleId in (select r.roleId from RoleEntity r where r.name=:name)")
     List<AccountEntity> findAccountByRole(@Param("name") String name);

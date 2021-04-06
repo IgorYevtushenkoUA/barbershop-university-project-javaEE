@@ -1,10 +1,10 @@
 -- insert role
 INSERT INTO role (name)
-VALUES ('admin');
+VALUES ('ROLE_ADMIN');
 INSERT INTO role (name)
-VALUES ('master');
+VALUES ('ROLE_MASTER');
 INSERT INTO role (name)
-VALUES ('client');
+VALUES ('ROLE_CLIENT');
 
 -- insert account
 INSERT INTO account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender)
