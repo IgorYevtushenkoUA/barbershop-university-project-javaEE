@@ -1,9 +1,8 @@
-package com.example.barbershop.service;
+package com.example.barbershop.config;
 
-import com.example.barbershop.config.CustomAccountDetails;
 import com.example.barbershop.entity.AccountEntity;
+import com.example.barbershop.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;

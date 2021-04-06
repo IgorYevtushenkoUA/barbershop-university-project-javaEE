@@ -1,7 +1,7 @@
 package com.example.barbershop.config.jwt;
 
+import com.example.barbershop.config.CustomAccountDetailService;
 import com.example.barbershop.config.CustomAccountDetails;
-import com.example.barbershop.service.CustomAccountDetailService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

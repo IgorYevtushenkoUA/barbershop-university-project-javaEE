@@ -13,21 +13,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional
-@RequiredArgsConstructor
+//@Transactional
+//@RequiredArgsConstructor
 public class AccountService {
 
-    private final AccountRepository accountRepository;
+//    private final AccountRepository accountRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
     @Autowired
     private RoleRepository roleRepository;
 
     @Autowired
-    private final PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public AccountEntity saveAccount(AccountEntity accountEntity, String roleName){
         RoleEntity accountRole = roleRepository.findByName(roleName);
-        accountEntity.setRoleId(accountRole.getRoleId());
+        accountEntity.setRoleId(accountRole.getRoleId()); //  return null
         accountEntity.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
 
         return accountRepository.save(accountEntity);

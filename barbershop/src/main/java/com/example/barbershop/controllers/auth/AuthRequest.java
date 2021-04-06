@@ -1,4 +1,4 @@
-package com.example.barbershop.controllers;
+package com.example.barbershop.controllers.auth;
 
 import lombok.Data;
 

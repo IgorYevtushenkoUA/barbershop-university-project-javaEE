@@ -1,4 +1,4 @@
-package com.example.barbershop.controllers;
+package com.example.barbershop.controllers.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,6 +7,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class AuthResponse {
 
-    private String toke;
+    private String token;
 
 }
