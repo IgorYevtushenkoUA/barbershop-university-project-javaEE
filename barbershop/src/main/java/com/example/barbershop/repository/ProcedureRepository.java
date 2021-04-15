@@ -11,4 +11,12 @@ public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Inte
     <T> List<T> findBy(Class<T> returnType);
 
     <T> Optional<T> findByProcedureId(Integer procedureId, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByPriceBetweenOrderByPriceAsc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByPriceBetweenOrderByPriceDesc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByPriceBetweenOrderByDurationAsc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByPriceBetweenOrderByDurationDesc(Integer priceFrom, Integer priceTo, Class<T> returnType);
 }

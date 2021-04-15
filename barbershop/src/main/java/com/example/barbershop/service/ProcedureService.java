@@ -35,4 +35,14 @@ public class ProcedureService {
         return procedure.getMasters();
     }
 
+    public List<ProcedureDto> findAllProcedures(Integer priceFrom, Integer priceTo, String sortBy) {
+        return sortBy.equals("price asc")
+                ? procedureRepository.findDistinctAllByPriceBetweenOrderByPriceAsc(priceFrom, priceFrom, ProcedureDto.class)
+                : sortBy.equals("price desc")
+                ? procedureRepository.findDistinctAllByPriceBetweenOrderByPriceDesc(priceFrom, priceFrom, ProcedureDto.class)
+                : sortBy.equals("duration asc")
+                ? procedureRepository.findDistinctAllByPriceBetweenOrderByDurationAsc(priceFrom, priceFrom, ProcedureDto.class)
+                : procedureRepository.findDistinctAllByPriceBetweenOrderByDurationDesc(priceFrom, priceFrom, ProcedureDto.class);
+    }
+
 }

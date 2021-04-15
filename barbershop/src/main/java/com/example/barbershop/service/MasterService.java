@@ -30,6 +30,13 @@ public class MasterService {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
 
+    public List<MasterDto> findAllMaster(Integer procedure, Integer levelId, String sortBy) {
+        List<Integer> levelList = levelId == null ? List.of(1, 2) : List.of(levelId);
+        return sortBy.equals("rating asc")
+                ? masterRepository.findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingAsc(procedure, levelList, MasterDto.class)
+                : masterRepository.findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingDesc(procedure, levelList, MasterDto.class);
+    }
+
     public Optional<MasterDto> findMasterById(int masterId) {
         return masterRepository.findByAccountId(masterId, MasterDto.class);
     }

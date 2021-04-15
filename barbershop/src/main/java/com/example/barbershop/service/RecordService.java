@@ -1,20 +1,16 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
+import com.example.barbershop.repository.ProcedureRepository;
 import com.example.barbershop.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.ColumnResult;
-import javax.persistence.ConstructorResult;
-import javax.persistence.SqlResultSetMapping;
-import java.sql.Timestamp;
-import java.time.Duration;
+import java.time.Clock;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -23,6 +19,7 @@ import java.util.List;
 public class RecordService {
 
     private final RecordRepository recordRepository;
+    private final ProcedureRepository procedureRepository;
 
     public List<RecordEntity> findAllRecords() {
         return recordRepository.findAllRecords();
@@ -57,6 +54,20 @@ public class RecordService {
     }
 
     public void addRecord(RecordEntity record) {
+        recordRepository.save(record);
+    }
+
+    public void addRecord(Integer clientId, Integer masterId, Integer procedureId, Instant procedureStart) {
+        RecordEntity record = new RecordEntity();
+        record.setClientId(clientId);
+        record.setMasterId(masterId);
+        record.setProcedureId(procedureId);
+        record.setRecordTime(Clock.systemDefaultZone().instant());
+        record.setStatusId(1);
+        record.setProcedureStart(procedureStart);
+        Integer procedureDuration = procedureRepository.findById(procedureId).orElse(null).getDuration();
+        record.setProcedureFinish(procedureStart.plusSeconds(60*procedureDuration));
+
         recordRepository.save(record);
     }
 
