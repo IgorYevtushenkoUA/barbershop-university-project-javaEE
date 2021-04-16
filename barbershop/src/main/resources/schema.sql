@@ -53,6 +53,7 @@ create table if not exists master
     work_experience integer          not null,
     rating          double precision not null,
     level_id        integer          not null,
+    photo           varchar(512)           ,
     constraint fk_master_account_id
         foreign key (account_id)
             references account (account_id),

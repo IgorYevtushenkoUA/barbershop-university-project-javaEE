@@ -9,4 +9,5 @@ public interface MasterDto {
     String getFirstName();
     String getSecondName();
     String getLastName();
+    Byte[] getPhoto();
 }

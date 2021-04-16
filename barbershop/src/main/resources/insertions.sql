@@ -1,12 +1,12 @@
--- insert role
+-- -- insert role
 INSERT INTO role (name)
 VALUES ('ROLE_ADMIN');
 INSERT INTO role (name)
 VALUES ('ROLE_MASTER');
 INSERT INTO role (name)
 VALUES ('ROLE_CLIENT');
-
--- insert account
+--
+-- -- insert account
 INSERT INTO account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender)
 VALUES ('admin@gmail.com', 'password', 1, '111-11-01', 'admin', 'admin', 'admin', 27, 'w');
 INSERT INTO account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender)
@@ -30,19 +30,19 @@ VALUES ('client5@gmail.com', 'cl5etnf', 3, '333-33-05', 'client5', 'client5', 'c
 INSERT INTO account (email, password, role_id, phone_number, first_name, second_name, last_name, age, gender)
 VALUES ('client6@gmail.com', 'ielcnt6', 3, '333-33-06', 'client6', 'client6', 'client6', 35, 'm');
 
--- insert status
+-- -- insert status
 INSERT INTO status (name)
 VALUES ('confirmed');
 INSERT INTO status (name)
 VALUES ('done');
-
--- insert level
+--
+-- -- insert level
 INSERT INTO level (name)
 VALUES ('trainee');
 INSERT INTO level (name)
 VALUES ('master');
-
--- insert procedure
+--
+-- -- insert procedure
 INSERT INTO procedure (name, price, duration)
 VALUES ('Haircut (including fade)', 400, 30);
 INSERT INTO procedure (name, price, duration)
@@ -57,22 +57,22 @@ INSERT INTO procedure (name, price, duration)
 VALUES ('Gray hair camouflage', 350, 30);
 INSERT INTO procedure (name, price, duration)
 VALUES ('Father + son', 650, 30);
-
--- insert master
-INSERT INTO master (account_id, work_experience, rating, level_id)
-VALUES (2, 5, 4.8, 2);
-INSERT INTO master (account_id, work_experience, rating, level_id)
-VALUES (3, 4, 4.8, 2);
-INSERT INTO master (account_id, work_experience, rating, level_id)
-VALUES (4, 10, 5, 2);
-INSERT INTO master (account_id, work_experience, rating, level_id)
-VALUES (5, 1, 4.2, 1);
-
--- insert admin
+--
+-- --insert master
+INSERT INTO master (account_id, work_experience, rating, level_id, photo)
+VALUES (2, 5, 4.8, 2, 'd:\image.jpg');
+INSERT INTO master (account_id, work_experience, rating, level_id, photo)
+VALUES (3, 4, 4.8, 2, 'd:\image.jpg');
+INSERT INTO master (account_id, work_experience, rating, level_id, photo)
+VALUES (4, 10, 5, 2, 'd:\image.jpg');
+INSERT INTO master (account_id, work_experience, rating, level_id, photo)
+VALUES (5, 1, 4.2, 1, 'd:\image.jpg');
+--
+-- -- insert admin
 insert into admin (account_id)
 values (1);
-
--- insert client
+--
+-- -- insert client
 insert into client (account_id)
 values (6);
 insert into client (account_id)
@@ -85,8 +85,8 @@ insert into client (account_id)
 values (10);
 insert into client (account_id)
 values (11);
-
--- insert master_has_procedure #done
+--
+-- -- insert master_has_procedure #done
 INSERT INTO master_has_procedure (master_id, procedure_id)
 VALUES (2, 1);
 INSERT INTO master_has_procedure (master_id, procedure_id)
@@ -121,8 +121,8 @@ INSERT INTO master_has_procedure (master_id, procedure_id)
 VALUES (5, 4);
 INSERT INTO master_has_procedure (master_id, procedure_id)
 VALUES (5, 6);
-
--- insert record
+--
+-- -- insert record
 INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
 VALUES (6, 2, 1, '2021-01-10 10:00:00.000000', 2, '2021-01-11 10:00:00.000000', '2021-01-11 10:30:00.000000');
 INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
@@ -155,8 +155,8 @@ INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, 
 VALUES (10, 3, 2, '2021-01-27 13:00:00.000000', 1, '2021-02-06 10:00:00.000000', '2021-02-06 10:45:00.000000');
 INSERT INTO record (client_id, master_id, procedure_id, record_time, status_id, procedure_start, procedure_finish)
 VALUES (11, 2, 1, '2021-01-28 11:00:00.000000', 1, '2021-02-10 20:00:00.000000', '2021-02-10 20:30:00.000000');
-
--- insert comment
+--
+-- -- insert comment
 INSERT INTO comment (record_id, user_comment, rating, comment_time)
 VALUES (1, 'perfect job', 5, '2021-01-10');
 INSERT INTO comment (record_id, user_comment, rating, comment_time)

@@ -84,24 +84,4 @@ public class RecordEntity {
 
     @Column(name = "procedure_finish")
     private Instant procedureFinish;
-
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "status_id", insertable = false, updatable = false)
-//    @ToString.Exclude private StatusEntity status;
-//
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "record")
-//    @ToString.Exclude private List<CommentEntity> comment;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "master_id", insertable = false, updatable = false)
-//    @ToString.Exclude private MasterEntity master;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "account_id", insertable = false, updatable = false)
-//    @ToString.Exclude private AccountEntity account;
-//
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
-//    @ToString.Exclude private ProcedureEntity procedure;
-
 }

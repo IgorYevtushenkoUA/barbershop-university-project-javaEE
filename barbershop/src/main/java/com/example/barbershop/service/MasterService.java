@@ -82,7 +82,9 @@ public class MasterService {
     public void updateMaster(MasterEntity master) {
         var dbMaster = masterRepository.findById(master.getAccountId());
         if (dbMaster.isPresent()) {
-            var updatedMaster = dbMaster.get();
+//            var updatedMaster = dbMaster.get();
+            MasterEntity updatedMaster = new MasterEntity();
+            updatedMaster.setAccountId(master.getAccountId());
             updatedMaster.setEmail(master.getEmail());
             updatedMaster.setPassword(master.getPassword());
             updatedMaster.setRoleId(master.getRoleId());
@@ -95,9 +97,10 @@ public class MasterService {
             updatedMaster.setWorkExperience(master.getWorkExperience());
             updatedMaster.setRating(master.getRating());
             updatedMaster.setLevelId(master.getLevelId());
-
+            updatedMaster.setLevel(master.getLevel());
+            updatedMaster.setPhoto(master.getPhoto());
             masterRepository.save(updatedMaster);
         }
-    }
 
+    }
 }
