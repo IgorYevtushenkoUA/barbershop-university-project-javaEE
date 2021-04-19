@@ -5,6 +5,7 @@ import com.example.barbershop.entity.LevelEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.repository.MasterRepository;
+import com.example.barbershop.repository.ProcedureRepository;
 import com.example.barbershop.service.MasterService;
 import com.example.barbershop.service.ProcedureService;
 import com.example.barbershop.service.RecordService;
@@ -36,10 +37,11 @@ public class BarbershopApplication {
     public void test(ApplicationContext applicationContext) throws IOException {
 
         MasterService masterService = applicationContext.getBean(MasterService.class);
-//        masterService.deleteMasterById(12);
         ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
-        procedureService.deleteProcedureById(8);
-
+        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
+        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
+        procedureEntity.setName("abagalamaga");
+        procedureService.updateProcedure(procedureEntity);
     }
 
 }

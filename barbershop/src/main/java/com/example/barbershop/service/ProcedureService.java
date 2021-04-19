@@ -75,4 +75,17 @@ public class ProcedureService {
         }
     }
 
+    public void updateProcedure(ProcedureEntity procedure) {
+        var dbProcedure = procedureRepository.findById(procedure.getProcedureId());
+        if (dbProcedure.isPresent()) {
+            ProcedureEntity upProcedure = new ProcedureEntity();
+            upProcedure.setProcedureId(procedure.getProcedureId());
+            upProcedure.setMasters(procedure.getMasters());
+            upProcedure.setDuration(procedure.getDuration());
+            upProcedure.setPrice(procedure.getPrice());
+            upProcedure.setName(procedure.getName());
+            procedureRepository.save(upProcedure);
+        }
+    }
+
 }
