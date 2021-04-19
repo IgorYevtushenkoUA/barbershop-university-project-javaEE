@@ -4,5 +4,6 @@ public interface ProcedureDto {
     Integer getProcedureId();
     String getName();
     Integer getDuration();
-    Double getPrice();
+    Integer getPrice();
 }
+
