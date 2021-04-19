@@ -36,26 +36,10 @@ public class BarbershopApplication {
     public void test(ApplicationContext applicationContext) throws IOException {
 
         MasterService masterService = applicationContext.getBean(MasterService.class);
-        MasterRepository masterRepository = applicationContext.getBean(MasterRepository.class);
-        MasterEntity upMaster = masterRepository.findById(2).orElse(null);
-        upMaster.setPhoto("D:image2.jpg");
-        masterService.updateMaster(upMaster);
-
-        masterService.updateMaster(upMaster);
+//        masterService.deleteMasterById(12);
+        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
+        procedureService.deleteProcedureById(8);
 
     }
-
-    public byte[] extractBytes(String ImageName) throws IOException {
-        // open image
-        File imgPath = new File(ImageName);
-        BufferedImage bufferedImage = ImageIO.read(imgPath);
-
-        // get DataBufferBytes from Raster
-        WritableRaster raster = bufferedImage.getRaster();
-        DataBufferByte data = (DataBufferByte) raster.getDataBuffer();
-
-        return (data.getData());
-    }
-
 
 }

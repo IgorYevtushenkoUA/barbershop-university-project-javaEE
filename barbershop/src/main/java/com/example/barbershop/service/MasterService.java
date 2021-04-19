@@ -5,10 +5,12 @@ import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.repository.MasterRepository;
+import com.example.barbershop.repository.ProcedureRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,6 +22,7 @@ public class MasterService {
 
     private final MasterRepository masterRepository;
     private final AccountService accountService;
+    private final ProcedureRepository procedureRepository;
 
 
     public List<? extends AccountEntity> findAllMaster() {
@@ -44,6 +47,7 @@ public class MasterService {
     // todo check
     public void deleteMasterById(int id) {
         if (masterRepository.findById(id).isPresent()) {
+            deleteInMasterAllProcedure(id);
             masterRepository.deleteById(id);
             accountService.deleteAccountById(id);
         }
@@ -59,7 +63,7 @@ public class MasterService {
     }
 
     /* delete procedure */
-    public void deleteInMasterProcedure(MasterEntity master, ProcedureEntity procedure) {
+    public void deleteInMasterProcedures(MasterEntity master, ProcedureEntity procedure) {
         if (master.getProcedures()
                 .stream().anyMatch(p -> p.getProcedureId().equals(procedure.getProcedureId()))) {
             master.setProcedures(master.getProcedures()
@@ -68,6 +72,18 @@ public class MasterService {
                     .collect(Collectors.toList()));
             masterRepository.save(master);
         }
+    }
+
+    public void deleteInMasterProcedures(int masterId, int procedureId) {
+        MasterEntity master = masterRepository.findById(masterId).orElse(null);
+        ProcedureEntity procedure = procedureRepository.findById(procedureId).orElse(null);
+        deleteInMasterProcedures(master, procedure);
+    }
+
+    public void deleteInMasterAllProcedure(int masterId) {
+        MasterEntity master = masterRepository.findById(masterId).orElse(null);
+        master.setProcedures(new ArrayList<>());
+        masterRepository.save(master);
     }
 
     public List<ProcedureEntity> findAllMastersProcedure(MasterEntity master) {
