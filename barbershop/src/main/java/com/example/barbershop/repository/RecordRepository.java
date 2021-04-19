@@ -2,17 +2,11 @@ package com.example.barbershop.repository;
 
 import com.example.barbershop.dtos.TimeSlot;
 import com.example.barbershop.entity.RecordEntity;
-import org.hibernate.query.NativeQuery;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.Duration;
 import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {

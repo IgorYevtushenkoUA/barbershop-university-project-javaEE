@@ -1,7 +1,6 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.dtos.TimeSlot;
-import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.repository.ProcedureRepository;
 import com.example.barbershop.repository.RecordRepository;
@@ -9,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
 import java.time.Instant;
 import java.util.List;
 
@@ -62,11 +60,11 @@ public class RecordService {
         record.setClientId(clientId);
         record.setMasterId(masterId);
         record.setProcedureId(procedureId);
-        record.setRecordTime(Clock.systemDefaultZone().instant());
+        record.setRecordTime(Instant.now());
         record.setStatusId(1);
         record.setProcedureStart(procedureStart);
-        Integer procedureDuration = procedureRepository.findById(procedureId).orElse(null).getDuration();
-        record.setProcedureFinish(procedureStart.plusSeconds(60*procedureDuration));
+        Integer procedureDuration = procedureRepository.findById(procedureId).get().getDuration();
+        record.setProcedureFinish(procedureStart.plusSeconds(60L * procedureDuration));
 
         recordRepository.save(record);
     }
