@@ -42,7 +42,7 @@ public class AccountService {
     public AccountEntity findByEmailAndPassword(String email, String password){
         AccountEntity accountEntity = findByEmail(email);
         if (accountEntity!=null){
-            if (passwordEncoder.matches(password, accountEntity.getPassword())){
+            if (password.equals(accountEntity.getPassword())){
                 return accountEntity;
             }
         }

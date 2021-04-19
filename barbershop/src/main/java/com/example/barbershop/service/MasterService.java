@@ -22,7 +22,7 @@ public class MasterService {
     private final AccountService accountService;
 
 
-    public List<? extends AccountEntity> findAllMaster() {
+    public List<MasterDto> findAllMaster() {
         return masterRepository.findAllMaster();
     }
 

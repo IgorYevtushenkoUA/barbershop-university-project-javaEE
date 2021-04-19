@@ -22,7 +22,6 @@ public class BarbershopApplication {
         MasterService masterService = applicationContext.getBean(MasterService.class);
         ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
         RecordService recordService = applicationContext.getBean(RecordService.class);
-
         recordService.addRecord(6, 3, 1, Clock.systemDefaultZone().instant());
 
     }

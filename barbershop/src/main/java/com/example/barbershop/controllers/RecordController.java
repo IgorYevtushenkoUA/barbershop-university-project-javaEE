@@ -1,12 +1,12 @@
 package com.example.barbershop.controllers;
 
 import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
 import java.util.List;
@@ -15,6 +15,11 @@ import java.util.List;
 @RestController
 public class RecordController {
     private final RecordService records;
+
+    @GetMapping("/records")
+    public List<RecordEntity> getAllRecords(){
+        return records.findAllRecords();
+    }
 
     @RequestMapping("/timeSlots")
     List<TimeSlot> getTimeSlots(
@@ -27,5 +32,10 @@ public class RecordController {
                 end,
                 master,
                 procedure);
+    }
+
+    @DeleteMapping("/record/delete/{id}")
+    public ResponseEntity<RecordEntity> deleteRecord(@PathVariable int id){
+
     }
 }

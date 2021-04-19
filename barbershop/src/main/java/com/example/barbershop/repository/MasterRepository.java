@@ -1,5 +1,6 @@
 package com.example.barbershop.repository;
 
+import com.example.barbershop.dtos.MasterDto;
 import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.MasterEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,7 +13,7 @@ import java.util.Optional;
 public interface MasterRepository extends JpaRepository<MasterEntity, Integer> {
 
     @Query("select m from MasterEntity m")
-    List<? extends AccountEntity> findAllMaster();
+    List<MasterDto> findAllMaster();
 
     <T> Optional<T> findByAccountId(Integer accountId, Class<T> returnType);
 

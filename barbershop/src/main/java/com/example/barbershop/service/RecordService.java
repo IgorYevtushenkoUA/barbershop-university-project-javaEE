@@ -65,7 +65,9 @@ public class RecordService {
         record.setRecordTime(Clock.systemDefaultZone().instant());
         record.setStatusId(1);
         record.setProcedureStart(procedureStart);
+        ProcedureEntity procedure = procedureRepository.findById(1).orElse(null);
         Integer procedureDuration = procedureRepository.findById(procedureId).orElse(null).getDuration();
+        System.out.println("procedureDuration ::" + procedureDuration);
         record.setProcedureFinish(procedureStart.plusSeconds(60*procedureDuration));
 
         recordRepository.save(record);
