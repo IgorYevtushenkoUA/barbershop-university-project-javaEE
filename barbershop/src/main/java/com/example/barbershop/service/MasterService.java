@@ -63,7 +63,8 @@ public class MasterService {
     }
 
     /* delete procedure */
-    public void deleteInMasterProcedures(MasterEntity master, ProcedureEntity procedure) {
+    public void deleteInMasterProcedures(MasterDto m, ProcedureEntity procedure) {
+        MasterEntity master = masterRepository.findById(m.getAccountId()).orElse(null);
         if (master.getProcedures()
                 .stream().anyMatch(p -> p.getProcedureId().equals(procedure.getProcedureId()))) {
             master.setProcedures(master.getProcedures()
@@ -75,7 +76,7 @@ public class MasterService {
     }
 
     public void deleteInMasterProcedures(int masterId, int procedureId) {
-        MasterEntity master = masterRepository.findById(masterId).orElse(null);
+        MasterDto master = findMasterById(masterId).orElse(null);
         ProcedureEntity procedure = procedureRepository.findById(procedureId).orElse(null);
         deleteInMasterProcedures(master, procedure);
     }
