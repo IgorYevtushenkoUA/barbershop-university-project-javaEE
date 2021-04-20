@@ -34,8 +34,12 @@ public class RecordController {
                 procedure);
     }
 
+    @PostMapping("record/add")
+    public void addRecord(@RequestBody RecordEntity record){
+        records.addRecord(record);
+    }
+
     @DeleteMapping("/record/delete/{id}")
-    public ResponseEntity<RecordEntity> deleteRecord(@PathVariable int id){
-        return ResponseEntity.ok(null);
+    public void deleteRecord(@PathVariable int id){
     }
 }

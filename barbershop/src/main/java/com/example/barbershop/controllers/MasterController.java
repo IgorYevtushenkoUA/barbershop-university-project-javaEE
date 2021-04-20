@@ -1,6 +1,7 @@
 package com.example.barbershop.controllers;
 
 import com.example.barbershop.dtos.MasterDto;
+import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.exceptions.EntityNotExistsException;
 import com.example.barbershop.service.MasterService;
@@ -23,8 +24,8 @@ public class MasterController {
     }
 
     @GetMapping("/masters/all")
-    public List<MasterDto> getAllMasters(){
-       return masters.findAllMaster();
+    public List<? extends AccountEntity> getAllMasters(){
+       return  masters.findAllMaster();
     }
 
     @GetMapping("/masters/{id}")

@@ -24,14 +24,14 @@ public class ProcedureController {
         return procedures.findProcedureById(Integer.parseInt(id)).orElseThrow(() -> new EntityNotExistsException(id));
     }
 
-    @PostMapping("/client/procedure/add")
+    @PostMapping("/admin/procedure/add")
     public void addProcedure(@RequestBody ProcedureEntity procedure){
-        master.addToMasterProcedure(null,procedure);
+        procedures.addProcedure(procedure);
     }
 
     @DeleteMapping("/admin/procedure/delete/{id}")
     public void deleteProcedure(@PathVariable int id){
-        procedures.deleteInProcedureMasters(id);
+        procedures.deleteProcedureById(id);
     }
 
     @PutMapping("/admin/procedure/update")

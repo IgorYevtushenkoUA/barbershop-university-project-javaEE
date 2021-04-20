@@ -23,10 +23,7 @@ public class MasterEntity extends AccountEntity {
     private Integer workExperience;
 
     @Column(name = "rating")
-    private Integer rating;
-
-//    @EmbeddedId
-//    private MasterLevelId masterLevelId;
+    private Double rating;
 
     @Column(name = "level_id", insertable = false, updatable = false)
     private Integer levelId;
@@ -41,11 +38,8 @@ public class MasterEntity extends AccountEntity {
             inverseJoinColumns = @JoinColumn(name = "procedure_id"))
     private List<ProcedureEntity> procedures;
 
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "level_id", insertable = false, updatable = false)
-//    @ToString.Exclude
-//    private LevelEntity level;
+    @Column(name = "photo")
+    private String photo;
 
 }
 

@@ -33,9 +33,10 @@ public class MasterService {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
 
-    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
-        return masterRepository.findMasters(procedure, levelId, sortBy);
-    }
+
+//    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
+//        return masterRepository.findMasters(procedure, levelId, sortBy);
+//    }
 
     public Optional<MasterDto> findMasterById(int masterId) {
         return masterRepository.findByAccountId(masterId, MasterDto.class);
@@ -124,3 +125,4 @@ public class MasterService {
 
     }
 }
+

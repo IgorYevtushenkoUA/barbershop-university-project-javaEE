@@ -33,7 +33,9 @@ public class AuthController {
     @PostMapping("/register")
     public String registerAccount(@RequestBody @Valid RegistrationRequest registrationRequest) {
         AccountEntity accountEntity = new ClientEntity();
-        accountEntity.setEmail(registrationRequest.getEmail());
+//        accountEntity.setEmail(registrationRequest.getEmail());
+//        accountEntity.setPassword(registrationRequest.getPassword());
+        accountEntity.setEmail("email@gmail.com");
         accountEntity.setPassword(registrationRequest.getPassword());
         // here we have static data< but after we will take it from real registration form
         accountEntity.setRoleId(3);

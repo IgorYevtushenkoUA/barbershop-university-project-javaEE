@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface MasterRepository extends JpaRepository<MasterEntity, Integer> {
 
     @Query("select m from MasterEntity m")
-    List<MasterDto> findAllMaster();
+    List<? extends AccountEntity> findAllMaster();
 
     <T> Optional<T> findByAccountId(Integer accountId, Class<T> returnType);
 

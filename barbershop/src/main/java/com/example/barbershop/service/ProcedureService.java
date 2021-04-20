@@ -23,9 +23,9 @@ public class ProcedureService {
     private final MasterService masterService;
     private final MasterRepository masterRepository;
 
-//    public List<ProcedureDto> getAllProcedures() {
-//        return procedureRepository.findBy(ProcedureDto.class);
-//    }
+    public List<ProcedureDto> getAllProcedures() {
+        return procedureRepository.findBy(ProcedureDto.class);
+    }
 
     public Optional<ProcedureDto> findProcedureById(Integer id) {
         return procedureRepository.findByProcedureId(id, ProcedureDto.class);
@@ -40,9 +40,9 @@ public class ProcedureService {
         return procedure.getMasters();
     }
 
-    public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
-        return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
-    }
+//    public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
+//        return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
+//    }
 
     public void updateMasterRating(Integer masterId, Double rating){
         var dbMaster = masterRepository.findById(masterId).get();
@@ -88,4 +88,9 @@ public class ProcedureService {
         }
     }
 
+    public void addProcedure(ProcedureEntity procedure) {
+        procedureRepository.save(procedure);
+    }
+
 }
+
