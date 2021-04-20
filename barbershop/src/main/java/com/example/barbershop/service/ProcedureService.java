@@ -57,6 +57,7 @@ public class ProcedureService {
         procedureRepository.save(procedure);
     }
 
+
     public void deleteInMasterProcedures(MasterDto m, ProcedureEntity procedure) {
         MasterEntity master = masterRepository.findById(m.getAccountId()).orElse(null);
         if (master.getProcedures()
@@ -68,6 +69,7 @@ public class ProcedureService {
             masterRepository.save(master);
         }
     }
+
 
     public void updateProcedure(ProcedureEntity procedure) {
         var dbProcedure = procedureRepository.findById(procedure.getProcedureId());

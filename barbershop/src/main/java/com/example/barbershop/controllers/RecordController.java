@@ -36,6 +36,6 @@ public class RecordController {
 
     @DeleteMapping("/record/delete/{id}")
     public ResponseEntity<RecordEntity> deleteRecord(@PathVariable int id){
-
+        return ResponseEntity.ok(null);
     }
 }
