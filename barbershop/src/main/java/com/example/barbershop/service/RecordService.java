@@ -108,4 +108,8 @@ public class RecordService {
         recordRepository.removeAllByClientId(clientId);
     }
 
+    public void removeByRecordId(Integer recordId) {
+        recordRepository.removeByRecordId(recordId);
+    }
+
 }
