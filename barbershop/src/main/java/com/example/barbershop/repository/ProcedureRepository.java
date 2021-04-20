@@ -15,6 +15,8 @@ import java.util.Optional;
 
 public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Integer>, ProcedureRepositoryCustom {
 
+    <T> List<T> findBy(Class<T> returnType);
+
     <T> Optional<T> findByProcedureId(Integer procedureId, Class<T> returnType);
 }
 
