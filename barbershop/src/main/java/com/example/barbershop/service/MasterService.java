@@ -30,6 +30,10 @@ public class MasterService {
         return masterRepository.findAllMaster();
     }
 
+    public List<MasterDto> findAllMasterDto() {
+        return masterRepository.findAllMasterDto();
+    }
+
     public List<MasterDto> findAllMaster(Integer procedure) {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
