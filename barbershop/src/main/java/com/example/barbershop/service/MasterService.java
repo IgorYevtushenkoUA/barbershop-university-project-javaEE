@@ -39,7 +39,7 @@ public class MasterService {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
 
-//    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
+    //    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
 //        return masterRepository.findMasters(procedure, levelId, sortBy);
 //    }
     public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
@@ -104,19 +104,27 @@ public class MasterService {
         return master.map(MasterEntity::getProcedures).orElse(null);
     }
 
-    public void updateMasterRating(Integer masterId, Double rating){
+    public void updateMasterRating(Integer masterId, Double rating) {
         var dbMaster = masterRepository.findById(masterId).get();
         dbMaster.setRating(rating);
         masterRepository.save(dbMaster);
     }
 
-    public void addMaster(MasterEntity master){
+    public void addMaster(MasterEntity master) {
         master.setPhoto(null);
         master.setSecondName("second");
         master.setLevelId(1);
-        master.setLevel(new LevelEntity());
+
+        LevelEntity levelEntity = new LevelEntity();
+        levelEntity.setLevelId(1);
+        levelEntity.setName("trainee");
+        master.setLevel(levelEntity);
+
+        master.setProcedures(new ArrayList<>());
+
         master.setRoleId(2);
         System.out.println(master.toString());
+        // accountService.addAccount(master);
         masterRepository.save(master);
     }
 

@@ -6,6 +6,7 @@ import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.repository.MasterRepository;
 import com.example.barbershop.repository.ProcedureRepository;
+import com.example.barbershop.service.AccountService;
 import com.example.barbershop.service.MasterService;
 import com.example.barbershop.service.ProcedureService;
 import com.example.barbershop.service.RecordService;
@@ -31,31 +32,25 @@ public class BarbershopApplication {
     public static void main(String[] args) throws IOException {
         ApplicationContext applicationContext = SpringApplication.run(BarbershopApplication.class, args);
         BarbershopApplication ba = new BarbershopApplication();
-//        System.out.println(ba.extractBytes("d:\\image.jpg"));
-//        MasterService masterService = applicationContext.getBean(MasterService.class);
-//        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
-//        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
-//        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
-//        procedureEntity.setName("abagalamaga");
-//        procedureService.updateProcedure(procedureEntity);
-
         RecordService recordService = applicationContext.getBean(RecordService.class);
         recordService.removeAllByClientId(6);
 
 
         MasterService masterService = applicationContext.getBean(MasterService.class);
+        AccountService accountService = applicationContext.getBean(AccountService.class);
+        MasterEntity master = new MasterEntity();
+        master.setFirstName("fname");
+        master.setLastName("lName");
+        master.setAge(123);
+        master.setGender('w');
+        master.setEmail("sdfsdfdsfd");
+        master.setPassword("sdfsdfsdf");
+        master.setWorkExperience(12);
+        master.setRating(4.2);
+        master.setPhoneNumber("45456465");
+
+        masterService.addMaster(master);
+
         System.out.println( masterService.findAllMaster());
     }
-
-//    public void test(ApplicationContext applicationContext) throws IOException {
-//        MasterService masterService = applicationContext.getBean(MasterService.class);
-//        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
-//        RecordService recordService = applicationContext.getBean(RecordService.class);
-//        recordService.addRecord(6, 3, 1, Clock.systemDefaultZone().instant());
-//        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
-//        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
-//        procedureEntity.setName("abagalamaga");
-//        procedureService.updateProcedure(procedureEntity);
-//    }
-
 }
