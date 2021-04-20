@@ -38,11 +38,8 @@ public class MasterService {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
 
-    public List<MasterDto> findAllMaster(Integer procedure, Integer levelId, String sortBy) {
-        List<Integer> levelList = levelId == null ? List.of(1, 2) : List.of(levelId);
-        return sortBy.equals("rating asc")
-                ? masterRepository.findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingAsc(procedure, levelList, MasterDto.class)
-                : masterRepository.findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingDesc(procedure, levelList, MasterDto.class);
+    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
+        return masterRepository.findMasters(procedure, levelId, sortBy);
     }
 
     public Optional<MasterDto> findMasterById(int masterId) {
@@ -100,6 +97,12 @@ public class MasterService {
     public List<ProcedureEntity> findAllMastersProcedure(int masterId) {
         var master = masterRepository.findById(masterId);
         return master.map(MasterEntity::getProcedures).orElse(null);
+    }
+
+    public void updateMasterRating(Integer masterId, Double rating){
+        var dbMaster = masterRepository.findById(masterId).get();
+        dbMaster.setRating(rating);
+        masterRepository.save(dbMaster);
     }
 
     public void updateMaster(MasterEntity master) {

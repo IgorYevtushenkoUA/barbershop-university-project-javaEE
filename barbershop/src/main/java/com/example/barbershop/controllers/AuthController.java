@@ -1,13 +1,13 @@
 package com.example.barbershop.controllers;
 
 import com.example.barbershop.config.jwt.JwtProvider;
-import com.example.barbershop.controllers.auth.AuthResponse;
-import com.example.barbershop.controllers.auth.AuthRequest;
-import com.example.barbershop.controllers.auth.RegistrationRequest;
+import com.example.barbershop.dtos.auth.AuthRequest;
+import com.example.barbershop.dtos.auth.AuthResponse;
+import com.example.barbershop.dtos.auth.RegistrationRequest;
 import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.ClientEntity;
 import com.example.barbershop.service.AccountService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,13 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    @Autowired
-    private JwtProvider jwtProvider;
+    private final JwtProvider jwtProvider;
 
     @GetMapping("/registration")
     public String registration(){
@@ -44,6 +43,22 @@ public class AuthController {
         accountEntity.setLastName("lastName");
         accountEntity.setAge(15);
         accountEntity.setGender('w');
+        System.out.println("create user");
+        accountService.saveAccount(accountEntity,"ROLE_CLIENT");
+        return "OK";
+    }
+
+    @PostMapping("/register/customer")
+    public String registerCustomerAccount(@RequestBody @Valid RegistrationRequest request){
+        var accountEntity = new ClientEntity();
+        accountEntity.setEmail(request.getEmail());
+        accountEntity.setPassword(request.getPassword());
+        accountEntity.setPhoneNumber(request.getPhoneNumber());
+        accountEntity.setFirstName(request.getFirstName());
+        accountEntity.setSecondName(request.getSecondName());
+        accountEntity.setLastName(request.getLastName());
+        accountEntity.setAge(request.getAge());
+        accountEntity.setGender(request.getGender());
         System.out.println("create user");
         accountService.saveAccount(accountEntity,"ROLE_CLIENT");
         return "OK";

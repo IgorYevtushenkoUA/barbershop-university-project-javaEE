@@ -1,22 +1,48 @@
 package com.example.barbershop.repository;
 
+import com.example.barbershop.dtos.ProcedureDto;
+import com.example.barbershop.dtos.ProcedureDtoImpl;
 import com.example.barbershop.entity.ProcedureEntity;
+import com.example.barbershop.entity.QProcedureEntity;
+import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQuery;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Integer> {
-
-    <T> List<T> findBy(Class<T> returnType);
+public interface ProcedureRepository extends JpaRepository<ProcedureEntity, Integer>, ProcedureRepositoryCustom {
 
     <T> Optional<T> findByProcedureId(Integer procedureId, Class<T> returnType);
+}
 
-    <T> List<T> findDistinctAllByPriceBetweenOrderByPriceAsc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+interface ProcedureRepositoryCustom {
+    List<? extends ProcedureDto> findProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sort);
+}
 
-    <T> List<T> findDistinctAllByPriceBetweenOrderByPriceDesc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+@RequiredArgsConstructor
+class ProcedureRepositoryCustomImpl implements ProcedureRepositoryCustom {
+    private final EntityManager entityManager;
 
-    <T> List<T> findDistinctAllByPriceBetweenOrderByDurationAsc(Integer priceFrom, Integer priceTo, Class<T> returnType);
-
-    <T> List<T> findDistinctAllByPriceBetweenOrderByDurationDesc(Integer priceFrom, Integer priceTo, Class<T> returnType);
+    @Override
+    public List<ProcedureDtoImpl> findProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sort) {
+        var procedure = QProcedureEntity.procedureEntity;
+        var query = new JPAQuery<QProcedureEntity>(entityManager).from(procedure);
+        if (priceFrom.isPresent())
+            query = query.where(procedure.price.goe(priceFrom.get()));
+        if (priceTo.isPresent())
+            query = query.where(procedure.price.loe(priceTo.get()));
+        if (sort.isPresent())
+            query = switch (sort.get()) {
+                case "price asc" -> query.orderBy(procedure.price.asc());
+                case "price desc" -> query.orderBy(procedure.price.desc());
+                case "duration asc" -> query.orderBy(procedure.duration.asc());
+                case "duration desc" -> query.orderBy(procedure.duration.desc());
+                default -> throw new IllegalStateException("Unexpected value: " + sort.get());
+            };
+        return query.select(Projections.constructor(ProcedureDtoImpl.class,
+                procedure.procedureId, procedure.name, procedure.duration, procedure.price)).fetch();
+    }
 }
