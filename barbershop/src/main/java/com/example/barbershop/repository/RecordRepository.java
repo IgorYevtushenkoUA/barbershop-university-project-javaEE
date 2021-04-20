@@ -47,4 +47,6 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 
     void removeAllByClientId(Integer clientId);
 
+    void removeByRecordId(Integer recordId);
+
 }
