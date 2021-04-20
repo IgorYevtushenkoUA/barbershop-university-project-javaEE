@@ -58,7 +58,9 @@ public class MasterService {
             deleteInMasterAllProcedure(id);
             masterRepository.deleteById(id);
             accountService.deleteAccountById(id);
+            System.out.println("after");
         }
+        System.out.println("after if");
     }
 
     /* add procedure */
@@ -109,16 +111,23 @@ public class MasterService {
         dbMaster.setRating(rating);
         masterRepository.save(dbMaster);
     }
+    
+        public void addMaster(MasterEntity master) {
+            master.setPhoto(null);
+            master.setSecondName("second");
+            master.setLevelId(1);
 
-    public void addMaster(MasterEntity master){
-        master.setPhoto(null);
-        master.setSecondName("second");
-        master.setLevelId(1);
-        master.setLevel(new LevelEntity());
-        master.setRoleId(2);
-        System.out.println(master.toString());
-        masterRepository.save(master);
-    }
+            LevelEntity levelEntity = new LevelEntity();
+            levelEntity.setLevelId(1);
+            levelEntity.setName("trainee");
+            master.setLevel(levelEntity);
+
+            master.setProcedures(new ArrayList<>());
+
+            master.setRoleId(2);
+            System.out.println(master.toString());
+            masterRepository.save(master);
+        }
 
     public void updateMaster(MasterEntity master) {
         var dbMaster = masterRepository.findById(master.getAccountId());

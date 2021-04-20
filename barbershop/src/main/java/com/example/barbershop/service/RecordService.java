@@ -109,6 +109,7 @@ public class RecordService {
     }
 
     public void removeByRecordId(Integer recordId) {
+        System.out.println(recordId);
         commentService.removeAllByRecordId(recordId);
         recordRepository.removeByRecordId(recordId);
     }

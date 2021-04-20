@@ -52,8 +52,10 @@ public class MasterController {
         masters.updateMaster(master);
     }
 
-    @DeleteMapping("/admin/master/{id}")
+    @DeleteMapping("/admin/master/delete/{id}")
     public void deleteMaster(@PathVariable int id){
+        System.out.println("detele master start");
         masters.deleteMasterById(id);
+        System.out.println("detele master end");
     }
 }
