@@ -23,6 +23,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.Instant;
+import java.util.List;
 
 @SpringBootApplication
 public class BarbershopApplication {
@@ -40,6 +41,10 @@ public class BarbershopApplication {
 
         RecordService recordService = applicationContext.getBean(RecordService.class);
         recordService.removeAllByClientId(6);
+
+
+        MasterService masterService = applicationContext.getBean(MasterService.class);
+        System.out.println( masterService.findAllMaster());
     }
 
 //    public void test(ApplicationContext applicationContext) throws IOException {

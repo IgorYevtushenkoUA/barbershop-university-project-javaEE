@@ -2,6 +2,7 @@ package com.example.barbershop.service;
 
 import com.example.barbershop.dtos.MasterDto;
 import com.example.barbershop.entity.AccountEntity;
+import com.example.barbershop.entity.LevelEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.repository.MasterRepository;
@@ -30,6 +31,10 @@ public class MasterService {
         return masterRepository.findAllMaster();
     }
 
+    public List<MasterDto> findAllMasterDto() {
+        return masterRepository.findAllMasterDto();
+    }
+
     public List<MasterDto> findAllMaster(Integer procedure) {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
@@ -46,6 +51,7 @@ public class MasterService {
     // todo check
     public void deleteMasterById(int id) {
         if (masterRepository.findById(id).isPresent()) {
+            System.out.println("master");
             recordService.removeAllByMasterId(id);
             deleteInMasterAllProcedure(id);
             masterRepository.deleteById(id);
@@ -102,6 +108,16 @@ public class MasterService {
         masterRepository.save(dbMaster);
     }
 
+    public void addMaster(MasterEntity master){
+        master.setPhoto(null);
+        master.setSecondName("second");
+        master.setLevelId(1);
+        master.setLevel(new LevelEntity());
+        master.setRoleId(2);
+        System.out.println(master.toString());
+        masterRepository.save(master);
+    }
+
     public void updateMaster(MasterEntity master) {
         var dbMaster = masterRepository.findById(master.getAccountId());
         if (dbMaster.isPresent()) {
@@ -110,18 +126,18 @@ public class MasterService {
             updatedMaster.setAccountId(master.getAccountId());
             updatedMaster.setEmail(master.getEmail());
             updatedMaster.setPassword(master.getPassword());
-            updatedMaster.setRoleId(master.getRoleId());
+            updatedMaster.setRoleId(dbMaster.get().getRoleId());
             updatedMaster.setPhoneNumber(master.getPhoneNumber());
             updatedMaster.setFirstName(master.getFirstName());
-            updatedMaster.setSecondName(master.getSecondName());
+            updatedMaster.setSecondName(dbMaster.get().getSecondName());
             updatedMaster.setLastName(master.getLastName());
-            updatedMaster.setAge(master.getAge());
-            updatedMaster.setGender(master.getGender());
+            updatedMaster.setAge(master.getAge() == null ? dbMaster.get().getAge() : master.getAge());
+            updatedMaster.setGender(dbMaster.get().getGender());
             updatedMaster.setWorkExperience(master.getWorkExperience());
             updatedMaster.setRating(master.getRating());
-            updatedMaster.setLevelId(master.getLevelId());
-            updatedMaster.setLevel(master.getLevel());
-            updatedMaster.setPhoto(master.getPhoto());
+            updatedMaster.setLevelId(dbMaster.get().getLevelId());
+            updatedMaster.setLevel(dbMaster.get().getLevel());
+            updatedMaster.setPhoto(dbMaster.get().getPhoto());
             masterRepository.save(updatedMaster);
         }
 

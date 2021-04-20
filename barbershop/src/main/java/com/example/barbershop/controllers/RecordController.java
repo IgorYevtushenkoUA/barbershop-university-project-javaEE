@@ -34,17 +34,17 @@ public class RecordController {
                 procedure);
     }
 
-    @PostMapping("record/add")
+    @PostMapping("/admin/record/add")
     public void addRecord(@RequestBody RecordEntity record){
         records.addRecord(record);
     }
 
-    @PutMapping("/record/update")
+    @PutMapping("/admin/record/update")
     public void updateRecord(@RequestBody RecordEntity record){
         records.updateRecord(record);
     }
 
-    @DeleteMapping("/record/delete/{id}")
+    @DeleteMapping("/admin/record/delete/{id}")
     public void deleteRecord(@PathVariable int id){
         records.removeByRecordId(id);
     }

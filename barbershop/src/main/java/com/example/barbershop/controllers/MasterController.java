@@ -22,7 +22,7 @@ public class MasterController {
 
     @GetMapping("/admin/masters/all")
     public List<MasterDto> getAllMasters(){
-       return  null;
+       return  masters.findAllMasterDto();
     }
 
     @GetMapping("/masters/{id}")
@@ -30,8 +30,19 @@ public class MasterController {
         return masters.findMasterById(Integer.parseInt(id)).orElseThrow(() -> new EntityNotExistsException(id));
     }
 
+    @PostMapping("/admin/master/add")
+    public void addMaster(@RequestBody MasterEntity master){
+        System.out.println(master.toString());
+        masters.addMaster(master);
+    }
+
+    @PutMapping("/admin/master/update")
+    public void updateMaster(@RequestBody MasterEntity master){
+        masters.updateMaster(master);
+    }
+
     @DeleteMapping("/admin/master/{id}")
-    public void deleteMaster(@PathVariable String id){
-        masters.deleteMasterById(Integer.parseInt(id));
+    public void deleteMaster(@PathVariable int id){
+        masters.deleteMasterById(id);
     }
 }
