@@ -41,9 +41,15 @@ public class ProcedureService {
         return procedure.getMasters();
     }
 
+<<<<<<< HEAD
+//    public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
+//        return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
+//    }
+=======
     public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
         return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
     }
+>>>>>>> origin/queries
 
     public void updateMasterRating(Integer masterId, Double rating){
         var dbMaster = masterRepository.findById(masterId).get();
@@ -95,3 +101,4 @@ public class ProcedureService {
     }
 
 }
+

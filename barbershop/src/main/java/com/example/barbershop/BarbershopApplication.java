@@ -32,11 +32,6 @@ public class BarbershopApplication {
         ApplicationContext applicationContext = SpringApplication.run(BarbershopApplication.class, args);
         BarbershopApplication ba = new BarbershopApplication();
 //        System.out.println(ba.extractBytes("d:\\image.jpg"));
-        ba.test(applicationContext);
-    }
-
-    public void test(ApplicationContext applicationContext) throws IOException {
-
 //        MasterService masterService = applicationContext.getBean(MasterService.class);
 //        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
 //        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
@@ -51,5 +46,16 @@ public class BarbershopApplication {
         MasterService masterService = applicationContext.getBean(MasterService.class);
         System.out.println( masterService.findAllMaster());
     }
+
+//    public void test(ApplicationContext applicationContext) throws IOException {
+//        MasterService masterService = applicationContext.getBean(MasterService.class);
+//        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
+//        RecordService recordService = applicationContext.getBean(RecordService.class);
+//        recordService.addRecord(6, 3, 1, Clock.systemDefaultZone().instant());
+//        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
+//        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
+//        procedureEntity.setName("abagalamaga");
+//        procedureService.updateProcedure(procedureEntity);
+//    }
 
 }

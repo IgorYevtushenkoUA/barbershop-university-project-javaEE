@@ -66,17 +66,18 @@ public class RecordService {
         record.setProcedureStart(procedureStart);
         Integer procedureDuration = procedureRepository.findById(procedureId).get().getDuration();
         record.setProcedureFinish(procedureStart.plusSeconds(60L * procedureDuration));
+//        Integer procedureDuration = procedureRepository.findById(procedureId).orElse(null).getDuration();
         recordRepository.save(record);
     }
 
     public void updateRecord(RecordEntity record) {
         RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId());
         if (updatedRecord != null) {
-            updatedRecord.setClientId(record.getClientId());
-            updatedRecord.setMasterId(record.getMasterId());
+            updatedRecord.setClientId(updatedRecord.getClientId());
+            updatedRecord.setMasterId(updatedRecord.getMasterId());
             updatedRecord.setProcedureId(record.getProcedureId());
             updatedRecord.setRecordTime(record.getRecordTime());
-            updatedRecord.setStatusId(record.getStatusId());
+            updatedRecord.setStatusId(updatedRecord.getStatusId());
             updatedRecord.setProcedureStart(record.getProcedureStart());
             updatedRecord.setProcedureFinish(record.getProcedureFinish());
 
@@ -111,3 +112,4 @@ public class RecordService {
     }
 
 }
+
