@@ -1,13 +1,21 @@
 package com.example.barbershop.controllers;
 
+import com.example.barbershop.dtos.AccountDto;
+import com.example.barbershop.dtos.RecordDto;
 import com.example.barbershop.dtos.TimeSlot;
 import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.service.RecordService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import com.example.barbershop.service.AccountService;
+import com.example.barbershop.service.RecordService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.Instant;
 import java.util.List;
 
@@ -15,6 +23,7 @@ import java.util.List;
 @RestController
 public class RecordController {
     private final RecordService records;
+    private final AccountService accountService;
 
     @GetMapping("/records")
     public List<RecordEntity> getAllRecords(){
@@ -45,7 +54,13 @@ public class RecordController {
     }
 
     @DeleteMapping("/admin/record/delete/{id}")
-    public void deleteRecord(@PathVariable int id){
+    public void deleteRecord(@PathVariable int id) {
         records.removeByRecordId(id);
+    }
+    @RequestMapping(value = "/records/add", method = RequestMethod.POST)
+    void addBooking(@RequestBody @Valid RecordDto recordDto){
+        var user = SecurityContextHolder.getContext().getAuthentication().getName();
+        var account = accountService.findByEmail(user, AccountDto.class);
+        records.addRecord(account.getAccountId(), recordDto.getMasterId(), recordDto.getProcedureId(), recordDto.getDateTime());
     }
 }

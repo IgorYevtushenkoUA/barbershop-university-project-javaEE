@@ -39,10 +39,16 @@ public class MasterService {
         return masterRepository.findByProceduresProcedureId(procedure, MasterDto.class);
     }
 
+<<<<<<< HEAD
 
 //    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
 //        return masterRepository.findMasters(procedure, levelId, sortBy);
 //    }
+=======
+    public List<? extends MasterDto> findAllMaster(Integer procedure, Optional<Integer> levelId, Optional<String> sortBy) {
+        return masterRepository.findMasters(procedure, levelId, sortBy);
+    }
+>>>>>>> origin/queries
 
     public Optional<MasterDto> findMasterById(int masterId) {
         return masterRepository.findByAccountId(masterId, MasterDto.class);
@@ -108,6 +114,7 @@ public class MasterService {
         masterRepository.save(dbMaster);
     }
 
+<<<<<<< HEAD
     public void addMaster(MasterEntity master){
         master.setPhoto(null);
         master.setSecondName("second");
@@ -118,6 +125,8 @@ public class MasterService {
         masterRepository.save(master);
     }
 
+=======
+>>>>>>> origin/queries
     public void updateMaster(MasterEntity master) {
         var dbMaster = masterRepository.findById(master.getAccountId());
         if (dbMaster.isPresent()) {

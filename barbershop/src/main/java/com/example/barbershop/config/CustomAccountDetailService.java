@@ -15,7 +15,7 @@ public class CustomAccountDetailService implements UserDetailsService {
 
     @Override
     public CustomAccountDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        AccountEntity accountEntity = accountService.findByEmail(email);
+        AccountEntity accountEntity = accountService.findByEmail(email, AccountEntity.class);
         return CustomAccountDetails.fromAccountEntityToCustomAccountDetails(accountEntity);
     }
 }

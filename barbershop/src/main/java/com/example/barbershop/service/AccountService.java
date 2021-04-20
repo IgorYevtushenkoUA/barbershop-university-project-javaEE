@@ -4,11 +4,9 @@ import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.RoleEntity;
 import com.example.barbershop.repository.AccountRepository;
 import com.example.barbershop.repository.RoleRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -35,12 +33,12 @@ public class AccountService {
         return accountRepository.save(accountEntity);
     }
 
-    public AccountEntity findByEmail(String email){
-        return accountRepository.findByEmail(email);
+    public <T> T findByEmail(String email, Class<T> returnType){
+        return accountRepository.findByEmail(email, returnType);
     }
 
     public AccountEntity findByEmailAndPassword(String email, String password){
-        AccountEntity accountEntity = findByEmail(email);
+        AccountEntity accountEntity = findByEmail(email, AccountEntity.class);
         if (accountEntity!=null){
             if (password.equals(accountEntity.getPassword())){
                 return accountEntity;

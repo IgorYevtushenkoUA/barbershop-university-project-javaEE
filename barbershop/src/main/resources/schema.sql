@@ -83,10 +83,14 @@ create table if not exists master_has_procedure
     procedure_id integer not null,
     constraint fk_master_has_procedure_account_id
         foreign key (master_id)
-            references master (account_id),
+            references master (account_id)
+            on update cascade
+            on delete cascade,
     constraint fk_master_has_procedure_procedure_id
         foreign key (procedure_id)
-            references procedure (procedure_id),
+            references procedure (procedure_id)
+            on update cascade
+            on delete cascade,
     constraint master_has_procedure_pk
         primary key (master_id, procedure_id)
 );

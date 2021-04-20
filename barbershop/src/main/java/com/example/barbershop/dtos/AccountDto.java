@@ -1,13 +1,12 @@
 package com.example.barbershop.dtos;
 
-
-public interface MasterDto {
+public interface AccountDto {
     Integer getAccountId();
-    Double getRating();
-    Integer getLevelId();
-    Integer getWorkExperience();
     String getFirstName();
     String getSecondName();
     String getLastName();
-    String getPhoto();
+    String getPhoneNumber();
+    String getEmail();
+    Character getGender();
+    Integer getAge();
 }

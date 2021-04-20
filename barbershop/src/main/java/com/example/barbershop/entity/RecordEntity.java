@@ -56,6 +56,7 @@ from TimeSlots;
 @EqualsAndHashCode
 @ToString
 @NoArgsConstructor
+@Builder
 @AllArgsConstructor
 public class RecordEntity {
 

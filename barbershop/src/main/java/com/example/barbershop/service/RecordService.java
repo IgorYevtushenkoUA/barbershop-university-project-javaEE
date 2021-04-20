@@ -66,9 +66,12 @@ public class RecordService {
         record.setProcedureStart(procedureStart);
         Integer procedureDuration = procedureRepository.findById(procedureId).get().getDuration();
         record.setProcedureFinish(procedureStart.plusSeconds(60L * procedureDuration));
+<<<<<<< HEAD
 //        Integer procedureDuration = procedureRepository.findById(procedureId).orElse(null).getDuration();
         record.setProcedureFinish(procedureStart.plusSeconds(60 * procedureDuration));
 
+=======
+>>>>>>> origin/queries
 
         recordRepository.save(record);
     }

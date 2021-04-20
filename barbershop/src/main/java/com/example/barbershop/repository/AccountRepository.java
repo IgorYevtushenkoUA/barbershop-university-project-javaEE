@@ -4,7 +4,6 @@ import com.example.barbershop.entity.AccountEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,7 +14,7 @@ public interface AccountRepository extends JpaRepository<AccountEntity, Integer>
     // <? extends AccountEntity>
 
     @Query("select a from AccountEntity a where a.email=:email")
-    AccountEntity findByEmail(@Param("email") String email);
+    <T> T findByEmail(@Param("email") String email, Class<T> returnType);
 
     @Query("select a from AccountEntity a where a.email=:email and a.password=:password")
     AccountEntity findByEmailAndPassword(@Param("email") String email, @Param("password") String password);
