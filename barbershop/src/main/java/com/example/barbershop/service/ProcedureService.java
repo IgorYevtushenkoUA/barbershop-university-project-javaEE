@@ -1,6 +1,5 @@
 package com.example.barbershop.service;
 
-import com.example.barbershop.dtos.MasterDto;
 import com.example.barbershop.dtos.ProcedureDto;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
@@ -21,12 +20,12 @@ import java.util.stream.Collectors;
 public class ProcedureService {
 
     private final ProcedureRepository procedureRepository;
-    private final MasterRepository masterRepository;
     private final MasterService masterService;
+    private final MasterRepository masterRepository;
 
-    public List<ProcedureDto> getAllProcedures() {
-        return procedureRepository.findBy(ProcedureDto.class);
-    }
+//    public List<ProcedureDto> getAllProcedures() {
+//        return procedureRepository.findBy(ProcedureDto.class);
+//    }
 
     public Optional<ProcedureDto> findProcedureById(Integer id) {
         return procedureRepository.findByProcedureId(id, ProcedureDto.class);
@@ -41,14 +40,22 @@ public class ProcedureService {
         return procedure.getMasters();
     }
 
-    public List<ProcedureDto> findAllProcedures(Integer priceFrom, Integer priceTo, String sortBy) {
-        return sortBy.equals("price asc")
-                ? procedureRepository.findDistinctAllByPriceBetweenOrderByPriceAsc(priceFrom, priceFrom, ProcedureDto.class)
-                : sortBy.equals("price desc")
-                ? procedureRepository.findDistinctAllByPriceBetweenOrderByPriceDesc(priceFrom, priceFrom, ProcedureDto.class)
-                : sortBy.equals("duration asc")
-                ? procedureRepository.findDistinctAllByPriceBetweenOrderByDurationAsc(priceFrom, priceFrom, ProcedureDto.class)
-                : procedureRepository.findDistinctAllByPriceBetweenOrderByDurationDesc(priceFrom, priceFrom, ProcedureDto.class);
+    public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
+        return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
+    }
+
+    public void updateMasterRating(Integer masterId, Double rating){
+        var dbMaster = masterRepository.findById(masterId).get();
+        dbMaster.setRating(rating);
+        masterRepository.save(dbMaster);
+    }
+
+    public void deleteProcedureById(int procedureId) {
+        if (procedureRepository.findById(procedureId).isPresent()) {
+            deleteInMasterProcedure(procedureId);
+            deleteInProcedureMasters(procedureId);
+            procedureRepository.deleteById(procedureId);
+        }
     }
 
     public void deleteInProcedureMasters(int procedureId) {
@@ -57,19 +64,16 @@ public class ProcedureService {
         procedureRepository.save(procedure);
     }
 
-
-    public void deleteInMasterProcedures(MasterDto m, ProcedureEntity procedure) {
-        MasterEntity master = masterRepository.findById(m.getAccountId()).orElse(null);
-        if (master.getProcedures()
-                .stream().anyMatch(p -> p.getProcedureId().equals(procedure.getProcedureId()))) {
+    public void deleteInMasterProcedure(int procedureId) {
+        List<MasterEntity> masters = (List<MasterEntity>) masterService.findAllMaster();
+        for (int i = 0; i < masters.size(); i++) {
+            MasterEntity master = masters.get(i);
             master.setProcedures(master.getProcedures()
-                    .stream()
-                    .filter(p -> !p.getProcedureId().equals(procedure.getProcedureId()))
+                    .stream().filter(p -> !p.getProcedureId().equals(procedureId))
                     .collect(Collectors.toList()));
             masterRepository.save(master);
         }
     }
-
 
     public void updateProcedure(ProcedureEntity procedure) {
         var dbProcedure = procedureRepository.findById(procedure.getProcedureId());
