@@ -40,4 +40,11 @@ public interface RecordRepository extends JpaRepository<RecordEntity, Integer> {
 
     @Query(nativeQuery = true)
     List<TimeSlot> getFreeTimeSlots(Instant start, Instant end, Integer master, Integer procedure);
+
+    void removeAllByProcedureId(Integer procedureId);
+
+    void removeAllByMasterId(Integer procedureId);
+
+    void removeAllByClientId(Integer clientId);
+
 }

@@ -22,6 +22,7 @@ public class ProcedureService {
     private final ProcedureRepository procedureRepository;
     private final MasterService masterService;
     private final MasterRepository masterRepository;
+    private final RecordService recordService;
 
     public List<ProcedureDto> getAllProcedures() {
         return procedureRepository.findBy(ProcedureDto.class);
@@ -52,6 +53,7 @@ public class ProcedureService {
 
     public void deleteProcedureById(int procedureId) {
         if (procedureRepository.findById(procedureId).isPresent()) {
+            recordService.removeAllByProcedureId(procedureId);
             deleteInMasterProcedure(procedureId);
             deleteInProcedureMasters(procedureId);
             procedureRepository.deleteById(procedureId);

@@ -25,4 +25,6 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Integer>
     @Query("select c from CommentEntity c where c.commentId=:commentId")
     CommentEntity findCommentById(@Param("commentId") int commentId);
 
+    void removeAllByRecordId(Integer recordId);
+
 }

@@ -36,12 +36,16 @@ public class BarbershopApplication {
 
     public void test(ApplicationContext applicationContext) throws IOException {
 
-        MasterService masterService = applicationContext.getBean(MasterService.class);
-        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
-        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
-        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
-        procedureEntity.setName("abagalamaga");
-        procedureService.updateProcedure(procedureEntity);
+//        MasterService masterService = applicationContext.getBean(MasterService.class);
+//        ProcedureService procedureService = applicationContext.getBean(ProcedureService.class);
+//        ProcedureRepository procedureRepository = applicationContext.getBean(ProcedureRepository.class);
+//        ProcedureEntity procedureEntity = procedureRepository.findById(8).orElse(null);
+//        procedureEntity.setName("abagalamaga");
+//        procedureService.updateProcedure(procedureEntity);
+
+        RecordService recordService = applicationContext.getBean(RecordService.class);
+        recordService.removeAllByClientId(6);
+
     }
 
 }
