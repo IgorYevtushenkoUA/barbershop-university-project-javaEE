@@ -23,6 +23,7 @@ public class MasterService {
     private final MasterRepository masterRepository;
     private final AccountService accountService;
     private final ProcedureRepository procedureRepository;
+    private final RecordService recordService;
 
 
     public List<? extends AccountEntity> findAllMaster() {
@@ -45,6 +46,7 @@ public class MasterService {
     // todo check
     public void deleteMasterById(int id) {
         if (masterRepository.findById(id).isPresent()) {
+            recordService.removeAllByMasterId(id);
             deleteInMasterAllProcedure(id);
             masterRepository.deleteById(id);
             accountService.deleteAccountById(id);

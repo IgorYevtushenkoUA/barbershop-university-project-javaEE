@@ -50,6 +50,25 @@ public class AuthController {
         return "OK";
     }
 
+
+    @PostMapping("/administrator/registration")
+    public AuthResponse registrAdmin(@RequestBody ClientEntity req){
+        AccountEntity accountEntity = new ClientEntity();
+        accountEntity.setEmail(req.getEmail());
+        accountEntity.setPassword(req.getPassword());
+        // here we have static data< but after we will take it from real registration form
+        accountEntity.setRoleId(2);
+        accountEntity.setPhoneNumber(req.getPhoneNumber());
+        accountEntity.setFirstName(req.getFirstName());
+        accountEntity.setSecondName("second Name");
+        accountEntity.setLastName(req.getLastName());
+        accountEntity.setAge(req.getAge());
+        accountEntity.setGender('w');
+        accountService.saveAccount(accountEntity, "ROLE_ADMIN");
+        String token = jwtProvider.generateToken(accountEntity.getEmail());
+        return new AuthResponse(token);
+    }
+
     /**
      * @param request
      * @return JWT token

@@ -6,10 +6,7 @@ import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.exceptions.EntityNotExistsException;
 import com.example.barbershop.service.MasterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -23,7 +20,7 @@ public class MasterController {
         return masters.findAllMaster(procedureId);
     }
 
-    @GetMapping("/masters/all")
+    @GetMapping("/admin/masters/all")
     public List<? extends AccountEntity> getAllMasters(){
        return  masters.findAllMaster();
     }
@@ -31,5 +28,10 @@ public class MasterController {
     @GetMapping("/masters/{id}")
     public MasterDto getMaster(@PathVariable String id){
         return masters.findMasterById(Integer.parseInt(id)).orElseThrow(() -> new EntityNotExistsException(id));
+    }
+
+    @DeleteMapping("/admin/master/{id}")
+    public void deleteMaster(@PathVariable String id){
+        masters.deleteMasterById(Integer.parseInt(id));
     }
 }

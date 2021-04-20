@@ -44,6 +44,8 @@ public class AccountService {
         if (accountEntity!=null){
             if (password.equals(accountEntity.getPassword())){
                 return accountEntity;
+            } else if (passwordEncoder.matches(password,accountEntity.getPassword())){
+                return accountEntity;
             }
         }
         return null;
