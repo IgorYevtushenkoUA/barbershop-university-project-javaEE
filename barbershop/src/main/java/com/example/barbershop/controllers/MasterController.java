@@ -21,8 +21,8 @@ public class MasterController {
     }
 
     @GetMapping("/admin/masters/all")
-    public List<? extends AccountEntity> getAllMasters(){
-       return  masters.findAllMaster();
+    public List<MasterDto> getAllMasters(){
+       return  null;
     }
 
     @GetMapping("/masters/{id}")

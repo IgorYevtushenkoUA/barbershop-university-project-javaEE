@@ -109,12 +109,9 @@ public class RecordService {
         recordRepository.removeAllByClientId(clientId);
     }
 
-<<<<<<< HEAD
-}
-=======
     public void removeByRecordId(Integer recordId) {
         recordRepository.removeByRecordId(recordId);
     }
 
 }
->>>>>>> origin/queries_copy
+

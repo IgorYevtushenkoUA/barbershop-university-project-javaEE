@@ -46,5 +46,6 @@ public class RecordController {
 
     @DeleteMapping("/record/delete/{id}")
     public void deleteRecord(@PathVariable int id){
+        records.removeByRecordId(id);
     }
 }
