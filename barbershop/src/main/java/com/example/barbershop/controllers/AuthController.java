@@ -7,12 +7,9 @@ import com.example.barbershop.dtos.auth.RegistrationRequest;
 import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.ClientEntity;
 import com.example.barbershop.service.AccountService;
-<<<<<<< HEAD
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-=======
 import lombok.RequiredArgsConstructor;
->>>>>>> origin/queries
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,10 +50,8 @@ public class AuthController {
         return "OK";
     }
 
-<<<<<<< HEAD
-
     @PostMapping("/administrator/registration")
-    public AuthResponse registrAdmin(@RequestBody ClientEntity req){
+    public AuthResponse registrAdmin(@RequestBody ClientEntity req) {
         AccountEntity accountEntity = new ClientEntity();
         accountEntity.setEmail(req.getEmail());
         accountEntity.setPassword(req.getPassword());
@@ -71,7 +66,7 @@ public class AuthController {
         accountService.saveAccount(accountEntity, "ROLE_ADMIN");
         String token = jwtProvider.generateToken(accountEntity.getEmail());
         return new AuthResponse(token);
-=======
+    }
     @PostMapping("/register/customer")
     public String registerCustomerAccount(@RequestBody @Valid RegistrationRequest request){
         var accountEntity = new ClientEntity();
@@ -91,7 +86,6 @@ public class AuthController {
     @GetMapping("/auth")
     public String authorization(){
         return "Welcome to Authorization page";
->>>>>>> origin/queries
     }
 
     /**
