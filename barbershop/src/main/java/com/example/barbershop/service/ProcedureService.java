@@ -88,4 +88,8 @@ public class ProcedureService {
         }
     }
 
+    public void addProcedure(ProcedureEntity procedure) {
+        procedureRepository.save(procedure);
+    }
+
 }
