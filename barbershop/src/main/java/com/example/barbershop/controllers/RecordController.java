@@ -39,6 +39,11 @@ public class RecordController {
         records.addRecord(record);
     }
 
+    @PutMapping("/record/update")
+    public void updateRecord(@RequestBody RecordEntity record){
+        records.updateRecord(record);
+    }
+
     @DeleteMapping("/record/delete/{id}")
     public void deleteRecord(@PathVariable int id){
     }

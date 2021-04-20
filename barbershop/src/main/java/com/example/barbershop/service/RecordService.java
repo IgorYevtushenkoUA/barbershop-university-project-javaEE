@@ -52,6 +52,9 @@ public class RecordService {
     }
 
     public void addRecord(RecordEntity record) {
+        record.setMasterId(1);
+        record.setClientId(1);
+        record.setStatusId(1);
         recordRepository.save(record);
     }
 
@@ -72,11 +75,11 @@ public class RecordService {
     public void updateRecord(RecordEntity record) {
         RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId());
         if (updatedRecord != null) {
-            updatedRecord.setClientId(record.getClientId());
-            updatedRecord.setMasterId(record.getMasterId());
+            updatedRecord.setClientId(updatedRecord.getClientId());
+            updatedRecord.setMasterId(updatedRecord.getMasterId());
             updatedRecord.setProcedureId(record.getProcedureId());
             updatedRecord.setRecordTime(record.getRecordTime());
-            updatedRecord.setStatusId(record.getStatusId());
+            updatedRecord.setStatusId(updatedRecord.getStatusId());
             updatedRecord.setProcedureStart(record.getProcedureStart());
             updatedRecord.setProcedureFinish(record.getProcedureFinish());
 
