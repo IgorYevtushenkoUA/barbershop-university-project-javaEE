@@ -1,131 +1,131 @@
 package com.example.barbershop.service;
 
+import com.example.barbershop.dtos.RecordInfoDto;
+import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.entity.MasterEntity;
+import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
+import com.example.barbershop.exceptions.UnauthorizedException;
+import com.example.barbershop.repository.ProcedureRepository;
+import com.example.barbershop.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.Date;
+import java.time.Instant;
 import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class RecordService {
 
-    private final EntityManager entityManager;
+    private final RecordRepository recordRepository;
+    private final ProcedureRepository procedureRepository;
+//    private final CommentService commentService;
 
-    /**
-     * get all record
-     */
-    @Transactional
-    public List<RecordEntity> getAllRecord() {
-        System.out.println("getAllRecord");
-        return entityManager.createQuery("SELECT r FROM RecordEntity r", RecordEntity.class)
-                .getResultList();
+    public List<RecordEntity> findAllRecords() {
+        return recordRepository.findAllRecords();
     }
 
-    /**
-     * get record by Id
-     */
-    @Transactional
-    public RecordEntity getRecordById(int recordId) {
-        System.out.println("getRecordById");
-        return entityManager.find(RecordEntity.class, recordId);
+    public RecordEntity findRecordById(int id) {
+        return recordRepository.findRecordById(id, RecordEntity.class);
     }
 
-    /**
-     * todo test method
-     * edit record by Id
-     */
-    @Transactional
-    public void editRecordById(
-            int recordId,
-            int clientId,
-            int masterId,
-            int procedureId,
-            Date recordTime,
-            int statusId,
-            Date procedureTimeRecord
-    ) {
-        RecordEntity updatedRecord = new RecordEntity(
-                recordId,
-                clientId,
-                masterId,
-                procedureId,
-                recordTime,
-                statusId,
-                procedureTimeRecord
-        );
-        entityManager.merge(updatedRecord);
-        System.out.println("getRecordById");
+    public RecordInfoDto findCustomerRecordById(int id, int customer){
+        var record = recordRepository.getRecordInfo(id);
+        if (customer != record.getClientId())
+            throw new UnauthorizedException();
+        return record;
     }
 
-    /**
-     * todo test method
-     * add new record
-     */
-    @Transactional
-    public void createRecord(
-            int clientId,
-            int masterId,
-            int procedureId,
-            Date recordTime,
-            int statusId,
-            Date procedureTimeRecord
-    ) {
-        RecordEntity updatedRecord = new RecordEntity();
-        updatedRecord.setClientId(clientId);
-        updatedRecord.setMasterId(masterId);
-        updatedRecord.setProcedureId(procedureId);
-        updatedRecord.setRecordTime(recordTime);
-        updatedRecord.setStatusId(statusId);
-        updatedRecord.setProcedureTimeRecord(procedureTimeRecord);
-
-        entityManager.merge(updatedRecord);
-        System.out.println("getRecordById");
+    public List<TimeSlot> getTimeSlotsForInterval(Instant start, Instant end, Integer master, Integer procedure) {
+        return recordRepository.getFreeTimeSlots(start, end, master, procedure);
     }
 
-    /** todo test method
-     * get all record by masterId
-     */
-    public List<RecordEntity> getAllRecordByMasterId(int masterId) {
-        System.out.println("getAllRecordByMasterId");
-        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.masterId=:masterId ", RecordEntity.class)
-                .setParameter("masterId", masterId)
-                .getResultList();
+    public List<RecordEntity> findAllRecordsByMasterId(int masterId) {
+        return recordRepository.findAllRecordsByMasterId(masterId);
     }
 
-    /** todo test method
-     * get all records by clientId
-     */
-    public List<RecordEntity> getAllRecordByClientId(int clientId) {
-        System.out.println("getAllRecordByClientId");
-        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.clientId=:clientId ", RecordEntity.class)
-                .setParameter("clientId", clientId)
-                .getResultList();
+    public List<RecordEntity> findAllRecordsByClientId(int clientId) {
+        return recordRepository.findAllRecordsByClientId(clientId, RecordEntity.class);
     }
 
-    /** todo test method
-     * get all records by status
-     */
-    public List<RecordEntity> getAllRecordByStatusId(int statusId) {
-        System.out.println("getAllRecordByStatusId");
-        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.statusId=:statusId ", RecordEntity.class)
-                .setParameter("statusId", statusId)
-                .getResultList();
+    public List<RecordInfoDto> findMyRecordsByClientId(int clientId) {
+        return recordRepository.getClientRecords(clientId);
     }
 
-    /** todo test method
-     * get all records by procedure
-     */
-    public List<RecordEntity> getAllRecordByProcedureId(int procedureId) {
-        System.out.println("getAllRecordByProcedureId");
-        return entityManager.createQuery("SELECT r FROM RecordEntity r WHERE r.procedureId=:procedureId ", RecordEntity.class)
-                .setParameter("procedureId", procedureId)
-                .getResultList();
+    public List<RecordEntity> findAllRecordsByProcedureId(int procedureId) {
+        return recordRepository.findAllRecordsByProcedureId(procedureId);
     }
 
-    /** get all records by day ??? */
+    public List<RecordEntity> findAllRecordsByStatusId(int statusId) {
+        return recordRepository.findAllRecordsByStatusId(statusId);
+    }
+
+    public List<RecordEntity> findAllRecordsByStatusName(String status) {
+        return recordRepository.findAllRecordsByStatusName(status);
+    }
+
+    public void addRecord(RecordEntity record) {
+        recordRepository.save(record);
+    }
+
+    public void addRecord(Integer clientId, Integer masterId, Integer procedureId, Instant procedureStart) {
+        RecordEntity record = new RecordEntity();
+        record.setClientId(clientId);
+        record.setMaster(MasterEntity.builder().accountId(masterId).build());
+        record.setProcedure(ProcedureEntity.builder().procedureId(procedureId).build());
+        record.setRecordTime(Instant.now());
+        record.setStatusId(1);
+        record.setProcedureStart(procedureStart);
+        Integer procedureDuration = procedureRepository.findById(procedureId).get().getDuration();
+        record.setProcedureFinish(procedureStart.plusSeconds(60L * procedureDuration));
+
+        recordRepository.save(record);
+    }
+
+    public void updateRecord(RecordEntity record) {
+        RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId(), RecordEntity.class);
+        if (updatedRecord != null) {
+            updatedRecord.setClientId(updatedRecord.getClientId());
+            updatedRecord.setMasterId(updatedRecord.getMasterId());
+            updatedRecord.setProcedureId(record.getProcedureId());
+            updatedRecord.setRecordTime(record.getRecordTime());
+            updatedRecord.setStatusId(updatedRecord.getStatusId());
+            updatedRecord.setProcedureStart(record.getProcedureStart());
+            updatedRecord.setProcedureFinish(record.getProcedureFinish());
+
+            recordRepository.save(updatedRecord);
+        }
+    }
+
+    public void removeAllByProcedureId(Integer procedureId) {
+        List<RecordEntity> records = findAllRecordsByProcedureId(procedureId);
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByProcedureId(procedureId);
+    }
+
+    public void removeAllByMasterId(Integer masterId) {
+        List<RecordEntity> records = findAllRecordsByMasterId(masterId);
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByMasterId(masterId);
+    }
+
+    public void removeAllByClientId(Integer clientId) {
+        List<RecordEntity> records = findAllRecordsByClientId(clientId);
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByClientId(clientId);
+    }
+
+    public void removeByRecordId(Integer recordId) {
+        System.out.println(recordId);
+//        commentService.removeAllByRecordId(recordId);
+        recordRepository.removeByRecordId(recordId);
+    }
 
 }
+

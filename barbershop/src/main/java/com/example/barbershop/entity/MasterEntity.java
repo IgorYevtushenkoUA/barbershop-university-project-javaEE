@@ -1,30 +1,46 @@
 package com.example.barbershop.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.List;
 
+@ToString(callSuper = true)
+@SuperBuilder
 @Entity
 @Table(name = "master")
 @Getter
 @Setter
-@ToString
-@EqualsAndHashCode
 @NoArgsConstructor
-@AllArgsConstructor
-public class MasterEntity {
-
-    @Id
-    @JoinColumn(name = "master_id") // todo JoinColumn may change -> because
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer masterId;
+//@PrimaryKeyJoinColumn(name = "account_id")
+public class MasterEntity extends AccountEntity {
 
     @Column(name = "work_experience")
     private Integer workExperience;
 
     @Column(name = "rating")
-    private Integer rating;
+    private Double rating;
 
-    @JoinColumn(name = "level_id", insertable = false, updatable = false)
+    @Column(name = "level_id", insertable = false, updatable = false)
     private Integer levelId;
+
+    @OneToOne
+    @JoinColumn(name = "level_id")
+    private LevelEntity level;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "master_has_procedure",
+            joinColumns = @JoinColumn(name = "master_id"),
+            inverseJoinColumns = @JoinColumn(name = "procedure_id"))
+    private List<ProcedureEntity> procedures;
+
+    @Column(name = "photo")
+    private String photo;
+
 }
+
+

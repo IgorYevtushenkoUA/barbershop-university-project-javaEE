@@ -2,50 +2,56 @@ package com.example.barbershop.entity;
 
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "account")
+@ToString
+@SuperBuilder
 @Getter
 @Setter
-@EqualsAndHashCode
-@ToString
 @NoArgsConstructor
-@AllArgsConstructor
-public class AccountEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class AccountEntity {
 
     @Id
     @Column(name = "account_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer accountId;
 
-    @Column(name = "email", length=128, nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
-    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @Column(name = "role_id", nullable = false)
     private Integer roleId;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "second_name")
+    @Column(name = "second_name", nullable = false)
     private String secondName;
 
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "age")
+    @Column(name = "age", nullable = false)
     private Integer age;
 
-    // may change char -> String xz
-    @Column(name = "gender")
+    @Column(name = "gender", nullable = false)
     private char gender;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id", insertable = false, updatable = false)
+    @ToString.Exclude
+    private RoleEntity accountRole;
+
 
 }

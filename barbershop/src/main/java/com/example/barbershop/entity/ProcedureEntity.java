@@ -3,11 +3,13 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "procedure")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @ToString
@@ -28,6 +30,11 @@ public class ProcedureEntity {
     private Integer duration;
 
 
+    @ManyToMany(mappedBy = "procedures")
+    @ToString.Exclude private List<MasterEntity> masters;
 
+//
+//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "procedure" )
+//    @ToString.Exclude private List<RecordEntity> recordsProcedure;
 
 }

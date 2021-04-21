@@ -1,7 +1,7 @@
 package com.example.barbershop.service;
 
-import com.example.barbershop.entity.LevelEntity;
-import com.example.barbershop.repository.LevelRepository;
+import com.example.barbershop.entity.RoleEntity;
+import com.example.barbershop.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,12 +11,12 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class LevelService {
+public class RoleService {
 
-    private final LevelRepository levelRepository;
+    public final RoleRepository roleRepository;
 
-    public List<LevelEntity> findAllLevel(){
-        return levelRepository.findAll();
+    public List<RoleEntity> findAllRoles(){
+        return roleRepository.findAll();
     }
 
 }

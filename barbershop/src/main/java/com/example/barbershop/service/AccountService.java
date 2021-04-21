@@ -1,132 +1,127 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.entity.AccountEntity;
-import lombok.RequiredArgsConstructor;
+import com.example.barbershop.entity.RoleEntity;
+import com.example.barbershop.repository.AccountRepository;
+import com.example.barbershop.repository.RoleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.EntityManager;
-
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
+//@Transactional
+//@RequiredArgsConstructor
 public class AccountService {
 
-    private final EntityManager entityManager;
+//    private final AccountRepository accountRepository;
+    @Autowired
+    private AccountRepository accountRepository;
 
-    @Transactional
-    public AccountEntity createAccount(
-            String email,
-            String password,
-            int roleId,
-            String phoneNumber,
-            String firstName,
-            String secondName,
-            String lastName,
-            int age,
-            char gender
-    ) {
-        AccountEntity account = new AccountEntity();
-        account.setEmail(email);
-        account.setPassword(password);
-        account.setRoleId(roleId);
-        account.setPhoneNumber(phoneNumber);
-        account.setFirstName(firstName);
-        account.setSecondName(secondName);
-        account.setLastName(lastName);
-        account.setAge(age);
-        account.setGender(gender);
+    @Autowired
+    private RoleRepository roleRepository;
 
-        return entityManager.merge(account); // persist
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    public AccountEntity saveAccount(AccountEntity accountEntity, String roleName){
+        RoleEntity accountRole = roleRepository.findByName(roleName);
+        accountEntity.setRoleId(accountRole.getRoleId()); //  return null
+        accountEntity.setPassword(passwordEncoder.encode(accountEntity.getPassword()));
+
+        return accountRepository.save(accountEntity);
     }
 
-    /**
-     * get account by ID
-     */
-    @Transactional
-    public AccountEntity getAccountById(int accountId) {
-        System.out.println("getAccountById");
-        return entityManager.find(AccountEntity.class, accountId);
+    public <T> T findByEmail(String email, Class<T> returnType){
+        return accountRepository.findByEmail(email, returnType);
     }
 
-    /**
-     * get All account
-     */
-    public List<AccountEntity> getAllAccounts() {
-        System.out.println("getAllAccounts");
-        return entityManager.createQuery("SELECT a FROM AccountEntity a", AccountEntity.class)
-                .getResultList();
+    public AccountEntity findByEmailAndPassword(String email, String password){
+        AccountEntity accountEntity = findByEmail(email, AccountEntity.class);
+        if (accountEntity!=null){
+            if (password.equals(accountEntity.getPassword())){
+                return accountEntity;
+            } else if (passwordEncoder.matches(password,accountEntity.getPassword())){
+                return accountEntity;
+            }
+        }
+        return null;
     }
 
-    /**
-     * update account by ID
-     */
-    @Transactional
+    public List<? extends AccountEntity> findAllAdmin() {
+        return accountRepository.findAllAdmin();
+    }
+
+    public List<AccountEntity> findAllClient() {
+        return accountRepository.findAllClient();
+    }
+
+    public List<AccountEntity> findAllMaster() {
+        return accountRepository.findAllMaster();
+    }
+
+    public AccountEntity findAccountById(int accountId) {
+        return accountRepository.findAccountById(accountId);
+    }
+
+    public List<AccountEntity> findAllAccounts() {
+        return accountRepository.findAll();
+    }
+
+    /* add account */
+    public <T extends AccountEntity> T addAccount(T account) {
+        System.out.println(account);
+        return accountRepository.save(account);
+    }
+
+    /* update by id */
     public void updateAccountById(AccountEntity account) {
-        entityManager.merge(account);
+        AccountEntity updatedAccount = accountRepository.findAccountById(account.getAccountId());
+        if (updatedAccount != null) {
+            updatedAccount.setEmail(account.getEmail());
+            updatedAccount.setPassword(account.getPassword());
+            updatedAccount.setRoleId(account.getRoleId());
+            updatedAccount.setPhoneNumber(account.getPhoneNumber());
+            updatedAccount.setFirstName(account.getFirstName());
+            updatedAccount.setSecondName(account.getSecondName());
+            updatedAccount.setLastName(account.getLastName());
+            updatedAccount.setAge(account.getAge());
+            updatedAccount.setGender(account.getGender());
+            accountRepository.save(updatedAccount);
+        }
     }
 
-    /**
-     * delete account by ID
-     */
-    @Transactional
+    public List<AccountEntity> findAccountByRole(String role){
+        return accountRepository.findAccountByRole(role);
+    }
+
+    /* delete account by id */
     public void deleteAccountById(int accountId) {
-        entityManager.createQuery("delete from AccountEntity a where a.accountId = :accountId", AccountEntity.class)
-                .setParameter("accountId", accountId)
-                .executeUpdate();
+        if (accountRepository.findAccountById(accountId) != null)
+            accountRepository.deleteById(accountId);
     }
 
-    /**
-     * todo check method
-     * find by firstName + secondName + LastName
-     */
-    @Transactional
-    public List<AccountEntity> findAccountByName(String name) {
-        System.out.println("findAccountByName");
-        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
-                "WHERE a.firstName LIKE : firstName " +
-                "OR  a.secondName LIKE : secondName " +
-                "OR  a.lastName LIKE : lastName", AccountEntity.class)
-                .setParameter("firstName", '%' + name + '%')
-                .setParameter("secondName", '%' + name + '%')
-                .setParameter("lastName", '%' + name + '%')
-                .getResultList();
+    /* find by firstName + secondName + LastName */
+    public List<AccountEntity> findAccountByFirstName(String firstName) {
+        return accountRepository.findAccountByFirstName(firstName);
     }
 
-    /**
-     * todo check method
-     * find by role
-     */
-    @Transactional
-    public List<AccountEntity> findAccountByRoleId(int roleId) {
-        System.out.println("findAccountByRoleId");
-        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
-                "WHERE a.roleId = : roleId", AccountEntity.class)
-                .setParameter("roleId", roleId)
-                .getResultList();
+    public List<AccountEntity> findAccountBySecondName(String secondName) {
+        return accountRepository.findAccountBySecondName(secondName);
     }
 
-    /**
-     * get list of account with email + password
-     */
-    @Transactional
-    public List getAccountsByEmailAndPassword(String email, String password) {
-        return entityManager.createQuery("SELECT a FROM AccountEntity a " +
-                "WHERE a.email = :email " +
-                "AND a.password = : password")
-                .setParameter("email", email)
-                .setParameter("password", password)
-                .getResultList();
+    public List<AccountEntity> findAccountByLastName(String lastName) {
+        return accountRepository.findAccountByLastName(lastName);
     }
 
-    /** get account by email and password */
-    @Transactional
-    public AccountEntity getAccountByEmailAndPassword(String email, String password) {
-        List accounts = getAccountsByEmailAndPassword(email, password);
-        return accounts.isEmpty()
-                ? null
-                : (AccountEntity) accounts.get(0);
+    /* Get account by email and password */
+    public AccountEntity findAccountByPhoneNumberAndPassword(String phoneNumber, String password) {
+        return accountRepository.findAccountByPhoneNumberAndPassword(phoneNumber, password);
     }
+
+    public AccountEntity findAccountByEmailAndPassword(String phoneNumber, String password) {
+        return accountRepository.findAccountByEmailAndPassword(phoneNumber, password);
+    }
+
 }

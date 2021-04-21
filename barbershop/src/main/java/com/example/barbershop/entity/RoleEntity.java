@@ -3,6 +3,7 @@ package com.example.barbershop.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -22,4 +23,6 @@ public class RoleEntity {
     @Column(name = "name")
     private String name;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "accountRole" )
+    @ToString.Exclude private List<AccountEntity> accountsRole;
 }

@@ -1,48 +1,58 @@
 package com.example.barbershop.service;
 
 import com.example.barbershop.entity.CommentEntity;
+import com.example.barbershop.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
+
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class CommentService {
+    private final CommentRepository commentRepository;
+    @Autowired
+    private MasterService masterService;
+    private final RecordService recordService;
 
-
-    private final EntityManager entityManager;
-
-    /**
-     * get all comments
-     */
-    @Transactional
-    public List<CommentEntity> getAllComments() {
-        System.out.println("getAllComments");
-        return entityManager.createQuery("SELECT c FROM CommentEntity c", CommentEntity.class)
-                .getResultList();
+    public List<CommentEntity> findAllComments() {
+        return commentRepository.findAllComments();
     }
 
 
-    /**
-     * get comment by id
-     */
-    @Transactional
-    public CommentEntity getCommentByCommentId(int commentId) {
-        System.out.println("getCommentByCommentId");
-        return entityManager.find(CommentEntity.class, commentId);
+    public List<CommentEntity> findAllCommentsByProcedure(int procedureId) {
+        return commentRepository.findAllCommentsByProcedure(procedureId);
     }
 
-    // todo test method
-    /** find comment by orderId */
-    public CommentEntity getCommentByOrderId(int orderId) {
-        System.out.println("getCommentByOrderId");
-        return entityManager.find(CommentEntity.class, orderId);
+
+    public <T> List<T> findAllCommentsByMaster(int masterId, Class<T> returnType) {
+        return commentRepository.findAllByRecord_MasterId(masterId, returnType);
     }
 
-    // todo
-    /** find comment by group or orders*/
+    public List<CommentEntity> findAllClientComments(int clientId) {
+        return commentRepository.findAllClientComments(clientId);
+    }
 
+    public <T> T findCommentById(int commentId, Class<T> returnType) {
+        return commentRepository.findCommentById(commentId, returnType);
+    }
+
+    public void addNewComment(CommentEntity comment, int account) {
+        commentRepository.save(comment);
+        var record = recordService.findCustomerRecordById(comment.getRecordId(), account);
+        var masterId = record.getMaster().getId();
+        masterService.updateMasterRating(masterId, commentRepository.getRatingForMaster(masterId));
+    }
+
+    public void deleteCommentById(int commentId) {
+        commentRepository.deleteById(commentId);
+    }
+
+    public void removeAllByRecordId(Integer recordId) {
+        commentRepository.removeAllByRecordId(recordId);
+    }
 }

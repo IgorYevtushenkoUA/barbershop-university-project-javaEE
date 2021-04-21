@@ -8,17 +8,12 @@ import java.io.Serializable;
 
 @EqualsAndHashCode
 @Embeddable
-@AllArgsConstructor()
+@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 @ToString
-public class MasterHasProcedureId implements Serializable {
-
-    @Column(name = "master_id")
-    private Integer masterId;
-
-    @Column(name = "procedure_id")
-    private Integer procedureId;
-
+public class MasterLevelId implements Serializable {
+    @Column(name="level_id")
+    private Integer levelId;
 }
