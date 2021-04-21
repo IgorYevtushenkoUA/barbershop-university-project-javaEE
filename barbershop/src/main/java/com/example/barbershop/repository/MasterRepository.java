@@ -9,22 +9,31 @@ import com.querydsl.jpa.impl.JPAQuery;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 import java.util.Optional;
 
-public interface MasterRepository extends JpaRepository<MasterEntity, Integer>, MasterRepositoryCustom {
-
+public interface MasterRepository
+        extends JpaRepository<MasterEntity, Integer>, MasterRepositoryCustom {
     @Query("select m from MasterEntity m")
     List<? extends AccountEntity> findAllMaster();
+
+    @Query("select m from MasterEntity m")
+    List<MasterDto> findAllMasterDto();
 
     <T> Optional<T> findByAccountId(Integer accountId, Class<T> returnType);
 
     <T> List<T> findByProceduresProcedureId(Integer procedureId, Class<T> returnType);
 
     <T> List<T> findByLevel_Name(String name, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingAsc(@Param("procedureId") Integer procedureId, @Param("levelId") List<Integer> levelId, Class<T> returnType);
+
+    <T> List<T> findDistinctAllByProceduresProcedureIdAndLevelLevelIdInOrderByRatingDesc(@Param("procedureId") Integer procedureId, @Param("levelId") List<Integer> levelId, Class<T> returnType);
 }
+
 
 interface MasterRepositoryCustom {
     List<? extends MasterDto> findMasters(Integer procedureId, Optional<Integer> levelId, Optional<String> sort);

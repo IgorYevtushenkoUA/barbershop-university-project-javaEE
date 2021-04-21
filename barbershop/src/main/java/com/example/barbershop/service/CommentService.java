@@ -50,4 +50,7 @@ public class CommentService {
         commentRepository.deleteById(commentId);
     }
 
+    public void removeAllByRecordId(Integer recordId) {
+        commentRepository.removeAllByRecordId(recordId);
+    }
 }

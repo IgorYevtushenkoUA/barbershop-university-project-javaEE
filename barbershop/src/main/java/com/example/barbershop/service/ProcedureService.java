@@ -22,10 +22,11 @@ public class ProcedureService {
     private final ProcedureRepository procedureRepository;
     private final MasterService masterService;
     private final MasterRepository masterRepository;
+    private final RecordService recordService;
 
-//    public List<ProcedureDto> getAllProcedures() {
-//        return procedureRepository.findBy(ProcedureDto.class);
-//    }
+    public List<ProcedureDto> getAllProcedures() {
+        return procedureRepository.findBy(ProcedureDto.class);
+    }
 
     public Optional<ProcedureDto> findProcedureById(Integer id) {
         return procedureRepository.findByProcedureId(id, ProcedureDto.class);
@@ -40,6 +41,10 @@ public class ProcedureService {
         return procedure.getMasters();
     }
 
+//    public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
+//        return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
+//    }
+
     public List<? extends ProcedureDto> findAllProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sortBy) {
         return procedureRepository.findProcedures(priceFrom, priceTo, sortBy);
     }
@@ -52,6 +57,7 @@ public class ProcedureService {
 
     public void deleteProcedureById(int procedureId) {
         if (procedureRepository.findById(procedureId).isPresent()) {
+            recordService.removeAllByProcedureId(procedureId);
             deleteInMasterProcedure(procedureId);
             deleteInProcedureMasters(procedureId);
             procedureRepository.deleteById(procedureId);
@@ -88,4 +94,9 @@ public class ProcedureService {
         }
     }
 
+    public void addProcedure(ProcedureEntity procedure) {
+        procedureRepository.save(procedure);
+    }
+
 }
+

@@ -21,6 +21,7 @@ public class RecordService {
 
     private final RecordRepository recordRepository;
     private final ProcedureRepository procedureRepository;
+    private final CommentService commentService;
 
     public List<RecordEntity> findAllRecords() {
         return recordRepository.findAllRecords();
@@ -45,6 +46,8 @@ public class RecordService {
         return recordRepository.findAllRecordsByMasterId(masterId);
     }
 
+    public List<RecordEntity> findAllRecordsByClientId(int clientId) {
+        return recordRepository.findAllRecordsByClientId(clientId);
     public List<RecordInfoDto> findAllRecordsByClientId(int clientId) {
         return recordRepository.getClientRecords(clientId);
     }
@@ -82,11 +85,11 @@ public class RecordService {
     public void updateRecord(RecordEntity record) {
         RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId(), RecordEntity.class);
         if (updatedRecord != null) {
-            updatedRecord.setClientId(record.getClientId());
-            updatedRecord.setMasterId(record.getMasterId());
+            updatedRecord.setClientId(updatedRecord.getClientId());
+            updatedRecord.setMasterId(updatedRecord.getMasterId());
             updatedRecord.setProcedureId(record.getProcedureId());
             updatedRecord.setRecordTime(record.getRecordTime());
-            updatedRecord.setStatusId(record.getStatusId());
+            updatedRecord.setStatusId(updatedRecord.getStatusId());
             updatedRecord.setProcedureStart(record.getProcedureStart());
             updatedRecord.setProcedureFinish(record.getProcedureFinish());
 
@@ -94,7 +97,32 @@ public class RecordService {
         }
     }
 
-//    public List<RecordRepository> findAllRecordsByForLastWeek(){    }
+    public void removeAllByProcedureId(Integer procedureId) {
+        List<RecordEntity> records = findAllRecordsByProcedureId(procedureId);
+        for (RecordEntity record : records)
+            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByProcedureId(procedureId);
+    }
 
+    public void removeAllByMasterId(Integer masterId) {
+        List<RecordEntity> records = findAllRecordsByMasterId(masterId);
+        for (RecordEntity record : records)
+            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByMasterId(masterId);
+    }
+
+    public void removeAllByClientId(Integer clientId) {
+        List<RecordEntity> records = findAllRecordsByClientId(clientId);
+        for (RecordEntity record : records)
+            commentService.removeAllByRecordId(record.getRecordId());
+        recordRepository.removeAllByClientId(clientId);
+    }
+
+    public void removeByRecordId(Integer recordId) {
+        System.out.println(recordId);
+        commentService.removeAllByRecordId(recordId);
+        recordRepository.removeByRecordId(recordId);
+    }
 
 }
+

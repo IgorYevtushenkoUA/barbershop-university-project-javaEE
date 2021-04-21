@@ -33,6 +33,8 @@ where r.master_id = :masterId
     Double getRatingForMaster(@Param("masterId") int masterId);
 }
 
+    void removeAllByRecordId(Integer recordId);
+
 interface CommentRepositoryCustom {
     void refresh(CommentEntity commentEntity);
 }

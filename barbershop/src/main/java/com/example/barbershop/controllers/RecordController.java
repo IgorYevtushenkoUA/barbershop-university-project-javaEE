@@ -4,6 +4,11 @@ import com.example.barbershop.dtos.AccountDto;
 import com.example.barbershop.dtos.RecordDto;
 import com.example.barbershop.dtos.RecordInfoDto;
 import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.entity.RecordEntity;
+import com.example.barbershop.service.RecordService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import com.example.barbershop.exceptions.UnauthorizedException;
 import com.example.barbershop.service.AccountService;
 import com.example.barbershop.service.RecordService;
@@ -22,6 +27,11 @@ public class RecordController {
     private final RecordService records;
     private final AccountService accountService;
 
+    @GetMapping("/records")
+    public List<RecordEntity> getAllRecords(){
+        return records.findAllRecords();
+    }
+
     @RequestMapping("/timeSlots")
     List<TimeSlot> getTimeSlots(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) Instant start,
@@ -35,6 +45,20 @@ public class RecordController {
                 procedure);
     }
 
+    @PostMapping("/admin/record/add")
+    public void addRecord(@RequestBody RecordEntity record){
+        records.addRecord(record);
+    }
+
+    @PutMapping("/admin/record/update")
+    public void updateRecord(@RequestBody RecordEntity record){
+        records.updateRecord(record);
+    }
+
+    @DeleteMapping("/admin/record/delete/{id}")
+    public void deleteRecord(@PathVariable int id) {
+        records.removeByRecordId(id);
+    }
     @RequestMapping(value = "/records/add", method = RequestMethod.POST)
     void addBooking(@RequestBody @Valid RecordDto recordDto){
         var user = SecurityContextHolder.getContext().getAuthentication().getName();
