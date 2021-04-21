@@ -1,7 +1,6 @@
 package com.example.barbershop.repository;
 
 import com.example.barbershop.dtos.MasterDto;
-import com.example.barbershop.dtos.MasterDtoImpl;
 import com.example.barbershop.entity.AccountEntity;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.QMasterEntity;
@@ -50,7 +49,7 @@ class MasterRepositoryCustomImpl implements MasterRepositoryCustom {
                 case "rating desc" -> query.orderBy(master.rating.desc());
                 default -> throw new IllegalStateException("Unexpected value: " + sort.get());
             };
-        return query.select(Projections.constructor(MasterDtoImpl.class,
+        return query.select(Projections.constructor(MasterDto.class,
                 master.accountId, master.rating, master.levelId, master.workExperience,
                 master.firstName, master.secondName, master.lastName, master.photo)).fetch();
     }

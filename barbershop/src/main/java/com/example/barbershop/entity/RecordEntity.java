@@ -68,10 +68,10 @@ public class RecordEntity {
     @JoinColumn(name = "client_id", insertable = false, updatable = false)
     private Integer clientId;
 
-    @JoinColumn(name = "master_id", insertable = false, updatable = false)
+    @Column(name = "master_id", insertable = false, updatable = false)
     private Integer masterId;
 
-    @JoinColumn(name = "procedure_id", insertable = false, updatable = false)
+    @Column(name = "procedure_id", insertable = false, updatable = false)
     private Integer procedureId;
 
     @Column(name = "record_time")
@@ -85,4 +85,12 @@ public class RecordEntity {
 
     @Column(name = "procedure_finish")
     private Instant procedureFinish;
+
+    @OneToOne
+    @JoinColumn(name = "procedure_id")
+    private ProcedureEntity procedure;
+
+    @OneToOne
+    @JoinColumn(name = "master_id")
+    private MasterEntity master;
 }

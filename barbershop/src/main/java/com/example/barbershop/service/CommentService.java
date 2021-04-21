@@ -13,8 +13,9 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class CommentService {
-
     private final CommentRepository commentRepository;
+    private final MasterService masterService;
+    private final RecordService recordService;
 
     public List<CommentEntity> findAllComments() {
         return commentRepository.findAllComments();
@@ -26,20 +27,23 @@ public class CommentService {
     }
 
 
-    public List<CommentEntity> findAllCommentsByMaster(int masterId) {
-        return commentRepository.findAllCommentsByMaster(masterId);
+    public <T> List<T> findAllCommentsByMaster(int masterId, Class<T> returnType) {
+        return commentRepository.findAllByRecord_MasterId(masterId, returnType);
     }
 
     public List<CommentEntity> findAllClientComments(int clientId) {
         return commentRepository.findAllClientComments(clientId);
     }
 
-    public CommentEntity findCommentById(int commentId) {
-        return commentRepository.findCommentById(commentId);
+    public <T> T findCommentById(int commentId, Class<T> returnType) {
+        return commentRepository.findCommentById(commentId, returnType);
     }
 
-    public void addNewComment(CommentEntity comment) {
+    public void addNewComment(CommentEntity comment, int account) {
         commentRepository.save(comment);
+        var record = recordService.findCustomerRecordById(comment.getRecordId(), account);
+        var masterId = record.getMaster().getId();
+        masterService.updateMasterRating(masterId, commentRepository.getRatingForMaster(masterId));
     }
 
     public void deleteCommentById(int commentId) {

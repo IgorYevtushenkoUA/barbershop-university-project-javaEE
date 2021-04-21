@@ -18,7 +18,7 @@ public class MasterController {
 
     @RequestMapping("/masters")
     public Iterable<? extends MasterDto> getMasters(@RequestParam Integer procedureId, @RequestParam Optional<Integer> levelId,
-                                          @RequestParam Optional<String> sort) {
+                                                    @RequestParam Optional<String> sort) {
         return masters.findAllMaster(procedureId, levelId, sort);
     }
 

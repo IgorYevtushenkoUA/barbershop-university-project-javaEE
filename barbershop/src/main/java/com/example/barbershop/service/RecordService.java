@@ -1,6 +1,9 @@
 package com.example.barbershop.service;
 
+import com.example.barbershop.dtos.RecordInfoDto;
 import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.entity.MasterEntity;
+import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
 import com.example.barbershop.repository.ProcedureRepository;
 import com.example.barbershop.repository.RecordRepository;
@@ -24,7 +27,14 @@ public class RecordService {
     }
 
     public RecordEntity findRecordById(int id) {
-        return recordRepository.findRecordById(id);
+        return recordRepository.findRecordById(id, RecordEntity.class);
+    }
+
+    public RecordInfoDto findCustomerRecordById(int id, int customer){
+        var record = recordRepository.getRecordInfo(id);
+//        if (customer != record.getClientId())
+//            throw new UnauthorizedException();
+        return record;
     }
 
     public List<TimeSlot> getTimeSlotsForInterval(Instant start, Instant end, Integer master, Integer procedure) {
@@ -35,8 +45,8 @@ public class RecordService {
         return recordRepository.findAllRecordsByMasterId(masterId);
     }
 
-    public List<RecordEntity> findAllRecordsByClientId(int masterId) {
-        return recordRepository.findAllRecordsByClientId(masterId);
+    public List<RecordInfoDto> findAllRecordsByClientId(int clientId) {
+        return recordRepository.getClientRecords(clientId);
     }
 
     public List<RecordEntity> findAllRecordsByProcedureId(int procedureId) {
@@ -58,8 +68,8 @@ public class RecordService {
     public void addRecord(Integer clientId, Integer masterId, Integer procedureId, Instant procedureStart) {
         RecordEntity record = new RecordEntity();
         record.setClientId(clientId);
-        record.setMasterId(masterId);
-        record.setProcedureId(procedureId);
+        record.setMaster(MasterEntity.builder().accountId(masterId).build());
+        record.setProcedure(ProcedureEntity.builder().procedureId(procedureId).build());
         record.setRecordTime(Instant.now());
         record.setStatusId(1);
         record.setProcedureStart(procedureStart);
@@ -70,7 +80,7 @@ public class RecordService {
     }
 
     public void updateRecord(RecordEntity record) {
-        RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId());
+        RecordEntity updatedRecord = recordRepository.findRecordById(record.getRecordId(), RecordEntity.class);
         if (updatedRecord != null) {
             updatedRecord.setClientId(record.getClientId());
             updatedRecord.setMasterId(record.getMasterId());

@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "procedure")
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 @ToString

@@ -2,7 +2,9 @@ package com.example.barbershop.controllers;
 
 import com.example.barbershop.dtos.AccountDto;
 import com.example.barbershop.dtos.RecordDto;
+import com.example.barbershop.dtos.RecordInfoDto;
 import com.example.barbershop.dtos.TimeSlot;
+import com.example.barbershop.exceptions.UnauthorizedException;
 import com.example.barbershop.service.AccountService;
 import com.example.barbershop.service.RecordService;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +40,23 @@ public class RecordController {
         var user = SecurityContextHolder.getContext().getAuthentication().getName();
         var account = accountService.findByEmail(user, AccountDto.class);
         records.addRecord(account.getAccountId(), recordDto.getMasterId(), recordDto.getProcedureId(), recordDto.getDateTime());
+    }
+
+    @RequestMapping(value = "/records")
+    RecordInfoDto getBooking(@RequestParam Integer id){
+        var user = SecurityContextHolder.getContext().getAuthentication().getName();
+        var account = accountService.findByEmail(user, AccountDto.class);
+        if (account == null)
+            throw new UnauthorizedException();
+        return records.findCustomerRecordById(id, account.getAccountId());
+    }
+
+    @RequestMapping(value = "/records/my")
+    List<RecordInfoDto> getClientBookings(){
+        var user = SecurityContextHolder.getContext().getAuthentication().getName();
+        var account = accountService.findByEmail(user, AccountDto.class);
+        if (account == null)
+            throw new UnauthorizedException();
+        return records.findAllRecordsByClientId(account.getAccountId());
     }
 }

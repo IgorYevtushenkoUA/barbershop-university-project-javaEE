@@ -122,11 +122,10 @@ create table if not exists record
 -- table comment
 create table if not exists comment
 (
-    comment_id   serial primary key,
-    record_id    integer not null,
+    record_id    integer primary key,
     user_comment varchar(2048) null,
     rating       integer not null,
-    comment_time date    not null,
+    comment_time timestamp    not null,
     constraint fk_comment_record_id
         foreign key (record_id)
             references record (record_id)

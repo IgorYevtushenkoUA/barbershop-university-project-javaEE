@@ -1,7 +1,6 @@
 package com.example.barbershop.repository;
 
 import com.example.barbershop.dtos.ProcedureDto;
-import com.example.barbershop.dtos.ProcedureDtoImpl;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.QProcedureEntity;
 import com.querydsl.core.types.Projections;
@@ -27,7 +26,7 @@ class ProcedureRepositoryCustomImpl implements ProcedureRepositoryCustom {
     private final EntityManager entityManager;
 
     @Override
-    public List<ProcedureDtoImpl> findProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sort) {
+    public List<ProcedureDto> findProcedures(Optional<Integer> priceFrom, Optional<Integer> priceTo, Optional<String> sort) {
         var procedure = QProcedureEntity.procedureEntity;
         var query = new JPAQuery<QProcedureEntity>(entityManager).from(procedure);
         if (priceFrom.isPresent())
@@ -42,7 +41,7 @@ class ProcedureRepositoryCustomImpl implements ProcedureRepositoryCustom {
                 case "duration desc" -> query.orderBy(procedure.duration.desc());
                 default -> throw new IllegalStateException("Unexpected value: " + sort.get());
             };
-        return query.select(Projections.constructor(ProcedureDtoImpl.class,
+        return query.select(Projections.constructor(ProcedureDto.class,
                 procedure.procedureId, procedure.name, procedure.duration, procedure.price)).fetch();
     }
 }
