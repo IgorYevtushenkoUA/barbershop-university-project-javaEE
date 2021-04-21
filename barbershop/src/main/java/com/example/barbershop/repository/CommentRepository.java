@@ -31,9 +31,9 @@ from comment c inner join record r on r.record_id = c.record_id
 where r.master_id = :masterId
 """, nativeQuery = true)
     Double getRatingForMaster(@Param("masterId") int masterId);
-}
 
     void removeAllByRecordId(Integer recordId);
+}
 
 interface CommentRepositoryCustom {
     void refresh(CommentEntity commentEntity);

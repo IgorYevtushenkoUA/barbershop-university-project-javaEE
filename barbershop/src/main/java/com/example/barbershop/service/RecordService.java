@@ -5,6 +5,7 @@ import com.example.barbershop.dtos.TimeSlot;
 import com.example.barbershop.entity.MasterEntity;
 import com.example.barbershop.entity.ProcedureEntity;
 import com.example.barbershop.entity.RecordEntity;
+import com.example.barbershop.exceptions.UnauthorizedException;
 import com.example.barbershop.repository.ProcedureRepository;
 import com.example.barbershop.repository.RecordRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,7 @@ public class RecordService {
 
     private final RecordRepository recordRepository;
     private final ProcedureRepository procedureRepository;
-    private final CommentService commentService;
+//    private final CommentService commentService;
 
     public List<RecordEntity> findAllRecords() {
         return recordRepository.findAllRecords();
@@ -33,8 +34,8 @@ public class RecordService {
 
     public RecordInfoDto findCustomerRecordById(int id, int customer){
         var record = recordRepository.getRecordInfo(id);
-//        if (customer != record.getClientId())
-//            throw new UnauthorizedException();
+        if (customer != record.getClientId())
+            throw new UnauthorizedException();
         return record;
     }
 
@@ -47,8 +48,10 @@ public class RecordService {
     }
 
     public List<RecordEntity> findAllRecordsByClientId(int clientId) {
-        return recordRepository.findAllRecordsByClientId(clientId);
-    public List<RecordInfoDto> findAllRecordsByClientId(int clientId) {
+        return recordRepository.findAllRecordsByClientId(clientId, RecordEntity.class);
+    }
+
+    public List<RecordInfoDto> findMyRecordsByClientId(int clientId) {
         return recordRepository.getClientRecords(clientId);
     }
 
@@ -99,28 +102,28 @@ public class RecordService {
 
     public void removeAllByProcedureId(Integer procedureId) {
         List<RecordEntity> records = findAllRecordsByProcedureId(procedureId);
-        for (RecordEntity record : records)
-            commentService.removeAllByRecordId(record.getRecordId());
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
         recordRepository.removeAllByProcedureId(procedureId);
     }
 
     public void removeAllByMasterId(Integer masterId) {
         List<RecordEntity> records = findAllRecordsByMasterId(masterId);
-        for (RecordEntity record : records)
-            commentService.removeAllByRecordId(record.getRecordId());
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
         recordRepository.removeAllByMasterId(masterId);
     }
 
     public void removeAllByClientId(Integer clientId) {
         List<RecordEntity> records = findAllRecordsByClientId(clientId);
-        for (RecordEntity record : records)
-            commentService.removeAllByRecordId(record.getRecordId());
+//        for (RecordEntity record : records)
+//            commentService.removeAllByRecordId(record.getRecordId());
         recordRepository.removeAllByClientId(clientId);
     }
 
     public void removeByRecordId(Integer recordId) {
         System.out.println(recordId);
-        commentService.removeAllByRecordId(recordId);
+//        commentService.removeAllByRecordId(recordId);
         recordRepository.removeByRecordId(recordId);
     }
 

@@ -82,7 +82,7 @@ class RecordRepositoryCustomImpl implements RecordRepositoryCustom {
     private static JPAQuery<RecordInfoDto> selectRecordInfo(JPAQuery<QRecordEntity> query) {
         var record = QRecordEntity.recordEntity;
         return query.select(Projections.constructor(RecordInfoDto.class,
-                record.recordId, record.procedureStart, record.procedureFinish,
+                record.recordId, record.clientId, record.procedureStart, record.procedureFinish,
                 Projections.constructor(RecordInfoDto.Master.class,
                         record.master.accountId, record.master.firstName, record.master.lastName, record.master.secondName),
                 Projections.constructor(RecordInfoDto.Procedure.class,

@@ -8,7 +8,8 @@ import java.time.Instant;
 @RequiredArgsConstructor
 @Getter
 public class RecordInfoDto {
-    final Integer id;
+    final Integer clientId;
+    final Integer customerId;
     final Instant start;
     final Instant finish;
     final Master master;

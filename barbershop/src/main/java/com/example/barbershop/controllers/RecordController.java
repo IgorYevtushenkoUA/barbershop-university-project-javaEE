@@ -81,6 +81,6 @@ public class RecordController {
         var account = accountService.findByEmail(user, AccountDto.class);
         if (account == null)
             throw new UnauthorizedException();
-        return records.findAllRecordsByClientId(account.getAccountId());
+        return records.findMyRecordsByClientId(account.getAccountId());
     }
 }

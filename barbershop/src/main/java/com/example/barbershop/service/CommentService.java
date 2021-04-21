@@ -3,6 +3,7 @@ package com.example.barbershop.service;
 import com.example.barbershop.entity.CommentEntity;
 import com.example.barbershop.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CommentService {
     private final CommentRepository commentRepository;
-    private final MasterService masterService;
+    @Autowired
+    private MasterService masterService;
     private final RecordService recordService;
 
     public List<CommentEntity> findAllComments() {

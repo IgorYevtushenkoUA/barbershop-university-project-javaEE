@@ -129,5 +129,7 @@ create table if not exists comment
     constraint fk_comment_record_id
         foreign key (record_id)
             references record (record_id)
+            on update cascade
+            on delete cascade
 );
 
